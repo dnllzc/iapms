@@ -13,13 +13,13 @@
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 2%;
+    border-radius: 6px;
 }
 
 button {
     background-color: darkmagenta;
     color: white;
-    border-radius: 2%;
+    border-radius: 6px;
     border: 1px solid black;
     height: 80px;
     width: 400px;
