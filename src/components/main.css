@@ -1,0 +1,35 @@
+* {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.center {
+    background-color: darkslategrey;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 64px 0;
+    margin-top: 64px;
+}
+
+button {
+    background-color: darkmagenta;
+    color: white;
+    border-radius: 2%;
+    border: 1px solid black;
+    height: 80px;
+    width: 400px;
+    font-size: 42px;
+    align-self: center;
+}
+
+button:hover {
+    background-color: magenta;
+    cursor: pointer;
+}
+
+.buttonContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+}

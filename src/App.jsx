@@ -1,15 +1,16 @@
 import './App.css'
+import NavBar from './components/NavBar'
+import Hero from './components/Hero'
 
 function App() {
 
   return (
     <>
+      <section className="navBar">
+        < NavBar />
+      </section>
       <section className="center">
-        <div className="hero">
-          <div className="hero__content">
-            <h1 className="hero__title">IAPMS</h1>
-          </div>
-        </div>
+        < Hero />
       </section>
     </>
   )
