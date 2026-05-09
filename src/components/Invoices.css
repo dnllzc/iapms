@@ -1,0 +1,132 @@
+.invoicePage {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 20px;
+    height: calc(100vh - 64px);
+    width: min(1400px, calc(100% - 32px));
+    margin: 0px auto 0;
+    padding: 24px 0 16px;
+}
+
+.invoiceHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+}
+
+.invoiceTitle {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.newInvoiceButton {
+    width: auto;
+    height: auto;
+    padding: 14px 24px;
+    font-size: 20px;
+    border-radius: 8px;
+    align-self: center;
+    flex: 0 0 auto;
+}
+
+.invoiceFilters {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 0 16px;
+    overflow-x: auto;
+}
+
+.invoiceFilterInput {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid black;
+    width: min(100%, 260px);
+    flex: 1 1 220px;
+    min-width: 180px;
+    height: 44px;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+}
+
+.invoiceFilterSelect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, black 50%), linear-gradient(135deg, black 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+}
+
+.invoiceTableShell {
+    min-height: 0;
+    margin: 0 16px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.invoiceTable {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+    color: white;
+}
+
+.invoiceTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: darkslategrey;
+    text-align: left;
+    padding: 16px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.invoiceTable tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    text-align: left;
+}
+
+.invoiceTable tbody td:last-child {
+    padding: 10px 8px;
+}
+
+.invoiceTable tbody tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.invoiceTable tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.invoiceActionButton {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: darkmagenta;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+}
+
+.invoiceActions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
