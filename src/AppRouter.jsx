@@ -1,6 +1,7 @@
 import App from './App.jsx'
 import Auth from './components/Auth.jsx'
 import Invoices from './components/Invoices.jsx'
+import Payments from './components/Payments.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 export default function AppRouter() {
@@ -10,7 +11,7 @@ export default function AppRouter() {
                 <Route path="/" element={<Auth />} />
                 <Route path="/home" element={<App />} />
                 <Route path="/invoices" element={<Invoices />} />
-                <Route path="/payments" element={<App />} />
+                <Route path="/payments" element={<Payments />} />
             </Routes>
         </BrowserRouter>
     )
