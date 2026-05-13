@@ -1,21 +1,22 @@
-import './Hero.css'
-import './main.css'
+import './AdminHero.css'
+import '../main.css'
 import NavBar from './NavBar'
 
-export default function Hero() {
+export default function AdminHero() {
     const type = 'admin'
     return (
         <>
             <section className="navBar">
-                    < NavBar />
+                < NavBar />
             </section>
             <section className="center">
                 <div className="heroContent">
                     <h1 className="welcomeTitle">Welcome, {type}!</h1>
 
                     <div className="buttonContainer">
-                        <a href="/invoices"><button className="invoiceButton">Invoices</button></a>
-                        <a href="/payments"><button className="paymentButton">Payments</button></a>
+                        <a href="/admin/discount-codes"><button className="invoiceButton">Discount Codes</button></a>
+                        <a href="/admin/items-services"><button className="paymentButton">Items/Services</button></a>
+                        <a href="/admin/users"><button className="userButton">Users</button></a>
                     </div>
                 </div>
             </section>

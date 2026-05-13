@@ -24,7 +24,11 @@ export default function Auth() {
         if (user) {
             alert("Login successful!");
             // Redirect to the home page
-            window.location.href = "/home";
+            if (user.type === "admin") {
+                window.location.href = "/admin";
+            } else {
+                window.location.href = "/home";
+            }
         } else {
             alert("Invalid email or password. Please try again.");
         }
