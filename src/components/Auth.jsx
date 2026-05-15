@@ -2,11 +2,6 @@ import './main.css'
 import './Auth.css'
 
 export default function Auth() {
-    const testLogin = [
-        { email: "admin", password: "123", type: "admin" },
-        { email: "user", password: "123", type: "employee" }
-    ];
-
     return (
         <section className="center">
             <h1 className="authTitle">Authentication</h1>
@@ -20,17 +15,44 @@ export default function Auth() {
 
     function handleLogin(email, password) {
         // Handle login logic here
-        const user = testLogin.find(u => u.email === email && u.password === password);
-        if (user) {
-            alert("Login successful!");
-            // Redirect to the home page
-            if (user.type === "admin") {
-                window.location.href = "/admin";
-            } else {
-                window.location.href = "/home";
+        fetch('api/auth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response failed')
             }
-        } else {
-            alert("Invalid email or password. Please try again.");
-        }
+            return response.json()
+        })
+        .then((data) => {
+            if (data.success) {
+                console.log('Login successful:', data.user)
+                // Redirect to admin dashboard or perform other actions
+                if (data.user.role === 'Admin') {
+                    alert('Login successful! Redirecting to admin dashboard...')
+                    window.location.href = '/admin';
+                } else {
+                    alert('Login successful! Redirecting to home page...')
+                    window.location.href = '/home';
+                }
+            } else {
+                alert('Login failed: ' + data.message)
+                console.error('Login failed:', data.message)
+                // Show error message to the user
+            }
+        })
+        .catch((error) => {
+            console.error('Error during login:', error)
+            alert('An error occurred during login. Please try again.')
+            // Show error message to the user
+        }).finally(() => {
+            // Clear input fields after login attempt
+            document.getElementById('email').value = ''
+            document.getElementById('password').value = ''
+        })
     }
 }

@@ -5,6 +5,7 @@ import payments from './routes/payments.js'
 import users from './routes/users.js'
 import discountCodes from './routes/discountcodes.js'
 import items from './routes/items.js'
+import auth from './routes/auth.js'
 
 const require = createRequire(import.meta.url);
 const express = require('express')
@@ -24,6 +25,8 @@ app.listen(port, () => {
 app.get('/api', (req, res) => {
     res.json({ message: 'API is running!' })
 })
+
+app.use('/api/auth', auth)
 
 app.use('/api/users', users)
 app.use('/api/invoices', invoices)

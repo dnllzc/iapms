@@ -31,9 +31,9 @@ const payments = [
 ]
 
 const users = [
-    { id: 0, email: "admin@example.com", firstName: "Admin", lastName: "User", role: "Admin", status: "Active" },
-    { id: 1, email: "employee@example.com", firstName: "Employee", lastName: "User", role: "Employee", status: "Active" },
-    { id: 2, email: "disabled@example.com", firstName: "Disabled", lastName: "User", role: "Employee", status: "Disabled" }
+    { id: 0, email: "admin@example.com", username: "admin", password: "123", firstName: "Admin", lastName: "User", role: "Admin", status: "Active" },
+    { id: 1, email: "employee@example.com", username: "employee", password: "123", firstName: "Employee", lastName: "User", role: "Employee", status: "Active" },
+    { id: 2, email: "disabled@example.com", username: "disabled", password: "123", firstName: "Disabled", lastName: "User", role: "Employee", status: "Disabled" }
 ]
 
 const discountCodes = [
@@ -47,12 +47,12 @@ const discountCodes = [
 
 const items = [
     { id: 0, name: "Item A", description: "Description for Item A", price: 100.00 },
-    { id: 1, name: "Item B", description: "Description for Item A", price: 100.00 },
-    { id: 2, name: "Item C", description: "Description for Item B", price: 150.00 },
-    { id: 3, name: "Item D", description: "Description for Item C", price: 200.00 },
-    { id: 4, name: "Item E", description: "Description for Item D", price: 250.00 },
-    { id: 5, name: "Item F", description: "Description for Item E", price: 300.00 },
-    { id: 6, name: "Item G", description: "Description for Item F", price: 350.00 },
+    { id: 1, name: "Item B", description: "Description for Item B", price: 100.00 },
+    { id: 2, name: "Item C", description: "Description for Item C", price: 150.00 },
+    { id: 3, name: "Item D", description: "Description for Item D", price: 200.00 },
+    { id: 4, name: "Item E", description: "Description for Item E", price: 250.00 },
+    { id: 5, name: "Item F", description: "Description for Item F", price: 300.00 },
+    { id: 6, name: "Item G", description: "Description for Item G", price: 350.00 },
 
 ]
 
