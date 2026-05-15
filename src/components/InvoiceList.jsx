@@ -18,6 +18,9 @@ export default function InvoiceList() {
                 console.error('Error fetching invoices:', error)
             })
     }, [])
+
+    // Sort invoices by id in decreasing order
+    const sortedInvoices = [...invoices].sort((a, b) => b.id - a.id)
     
     return (
         <table className="invoiceTable">
@@ -32,7 +35,7 @@ export default function InvoiceList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {invoices.map((element) => (
+                            {sortedInvoices.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
                                     <td>{element.date}</td>

@@ -3,6 +3,8 @@ import { createRequire } from "module";
 import invoices from './routes/invoices.js'
 import payments from './routes/payments.js'
 import users from './routes/users.js'
+import discountCodes from './routes/discountcodes.js'
+import items from './routes/items.js'
 
 const require = createRequire(import.meta.url);
 const express = require('express')
@@ -26,3 +28,5 @@ app.get('/api', (req, res) => {
 app.use('/api/users', users)
 app.use('/api/invoices', invoices)
 app.use('/api/payments', payments)
+app.use('/api/discountcodes', discountCodes)
+app.use('/api/items', items)

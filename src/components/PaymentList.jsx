@@ -18,6 +18,9 @@ export default function PaymentList() {
                     console.error('Error fetching payments:', error)
                 })
         }, [])
+
+    // Sort payments by id in decreasing order
+    const sortedPayments = [...payments].sort((a, b) => b.id - a.id)
     
     return (
         <table className="paymentTable">
@@ -31,7 +34,7 @@ export default function PaymentList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {payments.map((element) => (
+                            {sortedPayments.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.date}</td>
                                     <td>{element.name}</td>

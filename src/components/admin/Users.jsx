@@ -1,7 +1,7 @@
 import './Users.css'
 import '../main.css'
 import NavBar from './NavBar'
-import InvoiceList from './UserList'
+import UserList from './UserList'
 
 export default function Users() {
     return (
@@ -21,7 +21,7 @@ export default function Users() {
                 </section>
 
                 <section className="userTableShell">
-                    <InvoiceList />
+                    <UserList />
                 </section>
             </section>
         </>

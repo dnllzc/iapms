@@ -3,7 +3,6 @@ import '../main.css'
 import NavBar from './NavBar'
 
 export default function AdminHero() {
-    const type = 'admin'
     return (
         <>
             <section className="navBar">
@@ -11,7 +10,7 @@ export default function AdminHero() {
             </section>
             <section className="center">
                 <div className="heroContent">
-                    <h1 className="welcomeTitle">Welcome, {type}!</h1>
+                    <h1 className="welcomeTitle">Welcome, Admin User!</h1>
 
                     <div className="buttonContainer">
                         <a href="/admin/discount-codes"><button className="invoiceButton">Discount Codes</button></a>

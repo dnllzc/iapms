@@ -18,6 +18,9 @@ export default function UserList() {
                 console.error('Error fetching users:', error)
             })
     }, [])
+
+    // Sort users by id in decreasing order
+    const sortedUsers = [...users].sort((a, b) => b.id - a.id)
     
     return (
         <table className="userTable">
@@ -32,7 +35,7 @@ export default function UserList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map((element) => (
+                            {sortedUsers.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
                                     <td>{element.firstName}</td>
