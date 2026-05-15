@@ -1,8 +1,23 @@
+import { useEffect, useState } from 'react'
+
 export default function UserList() {
-    const testInvoices = [
-        { id: 2, email: "employee@example.com", firstName: "Employee", lastName: "User", role: "Employee", status: "Active" },
-        { id: 1, email: "admin@example.com", firstName: "Admin", lastName: "User", role: "Admin", status: "Active" },
-    ]
+    const [users, setUsers] = useState([])
+    
+    useEffect(() => {
+        fetch('/api/users')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response failed')
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setUsers(data)
+            })
+            .catch((error) => {
+                console.error('Error fetching users:', error)
+            })
+    }, [])
     
     return (
         <table className="userTable">
@@ -17,8 +32,8 @@ export default function UserList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {testInvoices.map((element, index) => (
-                                <tr key={index}>
+                            {users.map((element) => (
+                                <tr key={element.id}>
                                     <td>{element.id}</td>
                                     <td>{element.firstName}</td>
                                     <td>{element.lastName}</td>
