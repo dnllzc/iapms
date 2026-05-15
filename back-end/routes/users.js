@@ -1,0 +1,9 @@
+import { Router } from 'express';
+import { getUsers } from '../db.js'
+
+const router = Router();
+router.get('/', (req, res) => {
+    res.json(getUsers());
+})
+
+export default router
