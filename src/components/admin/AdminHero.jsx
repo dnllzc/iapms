@@ -14,7 +14,7 @@ export default function AdminHero() {
 
                     <div className="buttonContainer">
                         <a href="/admin/discount-codes"><button className="invoiceButton">Discount Codes</button></a>
-                        <a href="/admin/items-services"><button className="paymentButton">Items/Services</button></a>
+                        <a href="/admin/items"><button className="paymentButton">Items/Services</button></a>
                         <a href="/admin/users"><button className="userButton">Users</button></a>
                     </div>
                 </div>
