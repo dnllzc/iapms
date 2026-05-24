@@ -7,6 +7,8 @@ import discountCodes from './routes/discountcodes.js'
 import items from './routes/items.js'
 import auth from './routes/auth.js'
 
+import psql from './config/db.js'
+
 const require = createRequire(import.meta.url);
 const express = require('express')
 const app = express()
@@ -33,3 +35,11 @@ app.use('/api/invoices', invoices)
 app.use('/api/payments', payments)
 app.use('/api/discountcodes', discountCodes)
 app.use('/api/items', items)
+
+// Test database connection
+psql.connect().then(() => {
+    console.log('Connected to PostgreSQL database successfully!');
+})
+.catch((err) => {
+    console.error('Error connecting to PostgreSQL database:', err);
+});
