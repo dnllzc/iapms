@@ -19,8 +19,7 @@ export default function UserList() {
             })
     }, [])
 
-    // Sort users by id in decreasing order
-    const sortedUsers = [...users].sort((a, b) => b.id - a.id)
+    const sortedUsers = [...users].sort((a, b) => a.id - b.id)
     
     return (
         <table className="userTable">
@@ -38,8 +37,8 @@ export default function UserList() {
                             {sortedUsers.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
-                                    <td>{element.firstName}</td>
-                                    <td>{element.lastName}</td>
+                                    <td>{element.first_name}</td>
+                                    <td>{element.last_name}</td>
                                     <td>{element.email}</td>
                                     <td>{element.role}</td>
                                     <td>

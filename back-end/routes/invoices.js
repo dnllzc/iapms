@@ -1,10 +1,26 @@
 import { Router } from 'express'
-import { getInvoices } from '../db.js'
+import conn from '../config/db.js'
+
+const getInvoices = () => {
+    return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM invoices', (err, rows, fields) => {
+            if (err) {
+                reject(err);
+                return;
+            } 
+            resolve(rows);
+        });
+    });
+}
 
 const router = Router();
-
-router.get('/', (req, res) => {
-    res.json(getInvoices());
+router.get('/', async (req, res, next) => {
+    try {
+        const invoices = await getInvoices();
+        res.json(invoices);
+    } catch (err) {
+        next(err);
+    }
 })
 
 export default router
