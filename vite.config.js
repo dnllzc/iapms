@@ -11,6 +11,8 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    host: '0.0.0.0',
+    allowedHosts: ['localhost', '0.0.0.0'],
     port: 9292,
   },
 })
