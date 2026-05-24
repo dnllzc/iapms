@@ -12,7 +12,7 @@ import msql from './config/db.js'
 const require = createRequire(import.meta.url);
 const express = require('express')
 const app = express()
-const port = 5000
+const port = 9293
 
 app.use(express.json())
 
