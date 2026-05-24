@@ -7,7 +7,7 @@ import discountCodes from './routes/discountcodes.js'
 import items from './routes/items.js'
 import auth from './routes/auth.js'
 
-import psql from './config/db.js'
+import msql from './config/db.js'
 
 const require = createRequire(import.meta.url);
 const express = require('express')
@@ -37,9 +37,11 @@ app.use('/api/discountcodes', discountCodes)
 app.use('/api/items', items)
 
 // Test database connection
-psql.connect().then(() => {
-    console.log('Connected to PostgreSQL database successfully!');
-})
-.catch((err) => {
-    console.error('Error connecting to PostgreSQL database:', err);
+msql.getConnection((err, connection) => {
+    if (err) {
+        console.error('Error connecting to MySQL database:', err);
+    } else {
+        console.log('Connected to MySQL database successfully!');
+        connection.release();
+    }
 });
