@@ -19,8 +19,10 @@ export default function DiscountCodesList() {
             })
     }, [])
 
-    // Sort discount codes by id in decreasing order
-    discountCodes.sort((a, b) => b.id - a.id)
+    discountCodes.sort((a, b) => a.id - b.id)
+
+    const formatDate = (dateString) =>
+        new Date(dateString).toLocaleDateString('en-GB');
     
     return (
         <table className="discountCodeTable">
@@ -38,8 +40,8 @@ export default function DiscountCodesList() {
                             {discountCodes.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
-                                    <td>{element.expires}</td>
-                                    <td>{element.type}</td>
+                                    <td>{formatDate(element.expiration_date)}</td>
+                                    <td>{element.discount_type}</td>
                                     <td>{element.code}</td>
                                     <td>{element.value}</td>
                                     <td>
