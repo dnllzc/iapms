@@ -3,7 +3,7 @@ import conn from '../config/db.js'
 
 const getInvoices = () => {
     return new Promise((resolve, reject) => {
-        conn.query('SELECT * FROM invoices', (err, rows, fields) => {
+        conn.query('SELECT * FROM invoice', (err, rows, fields) => {
             if (err) {
                 reject(err);
                 return;
