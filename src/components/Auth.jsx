@@ -13,46 +13,39 @@ export default function Auth() {
         </section>
     )
 
-    function handleLogin(email, password) {
-        // Handle login logic here
-        fetch('api/auth', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        })
-        .then((response) => {
+    async function handleLogin(email, password) {
+        try {
+            const response = await fetch('/api/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+
+            const data = await response.json()
+
             if (!response.ok) {
-                throw new Error('Network response failed')
-            }
-            return response.json()
-        })
-        .then((data) => {
-            if (data.success) {
-                console.log('Login successful:', data.user)
-                // Redirect to admin dashboard or perform other actions
-                if (data.user.role === 'Admin') {
-                    alert('Login successful! Redirecting to admin dashboard...')
-                    window.location.href = '/admin';
-                } else {
-                    alert('Login successful! Redirecting to home page...')
-                    window.location.href = '/home';
-                }
-            } else {
-                alert('Login failed: ' + data.message)
+                alert(data.message || 'Login failed')
                 console.error('Login failed:', data.message)
-                // Show error message to the user
+                return
             }
-        })
-        .catch((error) => {
+
+            console.log('Login successful:', data.user)
+
+            if (data.user.role === 'admin') {
+                alert('Login successful! Redirecting to admin dashboard...')
+                window.location.href = '/admin'
+            } else {
+                alert('Login successful! Redirecting to home page...')
+                window.location.href = '/home'
+            }
+        } catch (error) {
             console.error('Error during login:', error)
             alert('An error occurred during login. Please try again.')
-            // Show error message to the user
-        }).finally(() => {
-            // Clear input fields after login attempt
+        } finally {
             document.getElementById('email').value = ''
             document.getElementById('password').value = ''
-        })
+        }
     }
 }
