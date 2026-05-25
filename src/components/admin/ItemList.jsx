@@ -19,8 +19,7 @@ export default function ItemList() {
             })
     }, [])
 
-    // Sort items by id in decreasing order without mutating state
-    const sortedItems = [...items].sort((a, b) => b.id - a.id)
+    const sortedItems = [...items].sort((a, b) => a.id - b.id)
     
     return (
         <table className="itemTable">
