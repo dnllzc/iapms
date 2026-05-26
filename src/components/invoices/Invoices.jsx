@@ -1,6 +1,6 @@
 import './Invoices.css'
-import './main.css'
-import NavBar from './NavBar'
+import '../main.css'
+import NavBar from '../NavBar'
 import InvoiceList from './InvoiceList'
 import { Link } from 'react-router-dom'
 

@@ -1,8 +1,9 @@
 import Hero from './components/Hero.jsx'
 import Auth from './components/Auth.jsx'
-import Invoices from './components/Invoices.jsx'
-import NewInvoice from './components/NewInvoice.jsx'
-import Payments from './components/Payments.jsx'
+
+import Invoices from './components/invoices/Invoices.jsx'
+import NewInvoice from './components/invoices/NewInvoice.jsx'
+import Payments from './components/payments/Payments.jsx'
 
 import AdminHero from './components/admin/AdminHero.jsx'
 import Users from './components/admin/Users.jsx'

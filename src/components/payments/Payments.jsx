@@ -1,6 +1,6 @@
 import './Payments.css'
-import './main.css'
-import NavBar from './NavBar'
+import '../main.css'
+import NavBar from '../NavBar'
 import PaymentList from './PaymentList'
 
 export default function Payments() {

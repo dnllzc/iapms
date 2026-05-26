@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './NewInvoices.css'
-import './main.css'
-import NavBar from './NavBar'
+import '../main.css'
+import NavBar from '../NavBar'
 import NewInvoiceItemList from './NewInvoiceItemList'
 import NewInvoiceItemsTable from './NewInvoiceItemsTable'
 
@@ -19,6 +19,7 @@ export default function NewInvoice() {
             return
         }
         console.log('Create invoice ', { addedItems }, '\nClient Name: ', form.clientName.value, '\nClient Email: ', form.clientEmail.value, '\nDiscount Code: ', form.discountCode.value, '\nTotal Amount: ', totalAmount.toFixed(2))
+        //window.location.href = '/invoices'
     }
 
     const handleAddItem = (item, quantity) => {

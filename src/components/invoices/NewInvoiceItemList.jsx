@@ -60,7 +60,7 @@ export default function NewInvoiceItemList({ onAddItem }) {
                             {sortedItems.map((element, index) => (
                                 <tr key={element.id}>
                                     <td>{element.name}</td>
-                                    <td>{element.price}</td>
+                                    <td>{element.price.toFixed(2)}€</td>
                                     <td>
                                         <div className="quantityContainer">
                                             <button className="quantityButton" id="decreaseButton" onClick={() => decrementQuantity(index)}>-</button>
