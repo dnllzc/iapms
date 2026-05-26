@@ -1,16 +1,53 @@
-# React + Vite
+# Web-Based Invoicing and Payment Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository hosts the project for Systems 3 course at UP FAMNIT done in student year 2025/26.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The project is a web-based invoicing and payment management system designed to streamline the process of creating, sending, and managing invoices for businesses. The system allows employees to create and manage invoices, track payment statuses, and generate PDF versions of invoices and payment receipts. Administrators have additional capabilities to manage employee accounts, items for invoicing, and discount codes.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- User authentication for employees and administrators
+- Invoice creation and management
+- Payment status tracking
+- Discount codes management
+- Employee user account management
+- Item management for invoicing
+- PDF generation for invoices and payment receipts
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Frontend: React.js
+- Backend: Node.js with Express
+- Database: MariaDB (FAMNIT student server)
+- Authentication: Plain text password authentication (for demonstration purposes)
+- PDF Generation: not implemented yet
+
+## Installation and Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dnllzc/iapms.git
+    cd iapms
+   ```
+2. Install dependencies for both frontend and backend:
+   ```bash
+    npm install
+    cd back-end
+    npm install
+    ```
+3. Configure the database connection in `back-end/.env` with your MariaDB credentials.
+4. Start the backend server:
+   ```bash
+    cd back-end
+    node index.js
+    ```
+5. Start the frontend development server:
+    ```bash
+    cd ..
+    npm run dev
+    ```
+6. Access the application at 'http://localhost:9292'.
+
+**Note: The back-end is on port 9293. All API calls can be made through either the frontend (http://localhost:9292/api) or directly to the backend (http://localhost:9293/api).*
