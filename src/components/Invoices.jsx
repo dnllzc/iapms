@@ -2,6 +2,7 @@ import './Invoices.css'
 import './main.css'
 import NavBar from './NavBar'
 import InvoiceList from './InvoiceList'
+import { Link } from 'react-router-dom'
 
 export default function Invoices() {
     return (
@@ -12,7 +13,7 @@ export default function Invoices() {
             <section className="invoicePage">
                 <section className="invoiceHeader">
                     <h1 className="invoiceTitle">Invoices</h1>
-                    <button className="newInvoiceButton">New Invoice</button>
+                    <Link to="/invoices/new"><button className="newInvoiceButton">New Invoice</button></Link>
                 </section>
 
                 <section className="invoiceFilters">

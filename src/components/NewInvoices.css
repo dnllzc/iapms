@@ -1,0 +1,279 @@
+.newInvoicePage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: min(1400px, calc(100% - 32px));
+    margin: 0px auto 0;
+    padding: 24px 0 16px;
+}
+
+.newInvoicePanel {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+    width: 100%;
+    min-height: 0;
+    padding: 0 16px;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+    flex: 1;
+}
+
+.newInvoiceHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+}
+
+.leftPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: auto;
+    padding-right: 4px;
+}
+
+.addedItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+}
+
+.addedItemsTitle {
+    margin: 8px 0 0;
+    color: #1f153f;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.addedItemsShell {
+    border: 1px solid rgba(31, 21, 63, 0.75);
+    border-radius: 8px;
+    overflow: visible;
+    background: rgba(31, 21, 63, 0.96);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.totalAmountRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    align-self: flex-end;
+    margin-top: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(31, 21, 63, 0.96);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.totalAmountLabel {
+    opacity: 0.9;
+}
+
+.totalAmountValue {
+    white-space: nowrap;
+}
+
+.rightPanel {
+    display: flex;
+    gap: 12px;
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: flex-start;
+    overflow: auto;
+    padding-left: 4px;
+}
+
+.newInvoiceTitle {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.invoiceFilterInput {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid black;
+    width: min(100%, 260px);
+    flex: 1 1 220px;
+    min-width: 180px;
+    height: 44px;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+}
+
+.newInvoiceInput {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid black;
+    width: 100%;
+    max-width: 100%;
+    height: 44px;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+}
+
+@media (max-width: 960px) {
+    .newInvoicePanel {
+        flex-wrap: wrap;
+    }
+
+    .leftPanel,
+    .rightPanel {
+        flex: 1 1 100%;
+        max-width: none;
+        min-width: 0;
+    }
+}
+
+.invoiceFilterSelect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, black 50%), linear-gradient(135deg, black 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+}
+
+.newInvoiceTableShell {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    overflow: visible;
+    min-height: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.newInvoiceTable {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+.newInvoiceItemsTable {
+    min-width: 100%;
+}
+
+.addedItemsShell .newInvoiceTable {
+    min-width: 100%;
+}
+
+.newInvoiceTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: darkslategrey;
+    text-align: left;
+    padding: 16px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.newInvoiceTable tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    text-align: left;
+}
+
+.newInvoiceTable tbody td:last-child {
+    padding: 10px 8px;
+}
+
+.newInvoiceTable tbody tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.newInvoiceTable tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.newInvoiceItemsTable .newInvoiceTable tbody td,
+.newInvoiceItemsTable tbody td {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.emptyInvoiceState {
+    text-align: center;
+    padding: 20px 16px;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.quantityContainer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.quantityButton {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: darkmagenta;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+}
+
+.invoiceActionButton {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    background-color: darkmagenta;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+}
+
+.newInvoiceActions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.newInvoiceItemsTable .quantityButton {
+    min-width: 28px;
+    padding: 4px 10px;
+}
+
+@media (max-width: 960px) {
+    .newInvoicePanel {
+        flex-wrap: wrap;
+    }
+
+    .leftPanel,
+    .rightPanel {
+        flex: 1 1 100%;
+        max-width: none;
+        min-width: 0;
+        overflow: visible;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

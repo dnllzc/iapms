@@ -1,6 +1,7 @@
 import Hero from './components/Hero.jsx'
 import Auth from './components/Auth.jsx'
 import Invoices from './components/Invoices.jsx'
+import NewInvoice from './components/NewInvoice.jsx'
 import Payments from './components/Payments.jsx'
 
 import AdminHero from './components/admin/AdminHero.jsx'
@@ -17,6 +18,7 @@ export default function AppRouter() {
                 <Route path="/" element={<Auth />} />
                 <Route path="/home" element={<Hero />} />
                 <Route path="/invoices" element={<Invoices />} />
+                <Route path="/invoices/new" element={<NewInvoice />} />
                 <Route path="/payments" element={<Payments />} />
 
                 <Route path="/admin" element={<AdminHero />} />
