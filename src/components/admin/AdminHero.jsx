@@ -1,6 +1,7 @@
 import './AdminHero.css'
 import '../main.css'
 import NavBar from './NavBar'
+import { Link } from 'react-router-dom'
 
 export default function AdminHero() {
     return (
@@ -13,9 +14,9 @@ export default function AdminHero() {
                     <h1 className="welcomeTitle">Welcome, Admin User!</h1>
 
                     <div className="buttonContainer">
-                        <a href="/admin/discount-codes"><button className="invoiceButton">Discount Codes</button></a>
-                        <a href="/admin/items"><button className="paymentButton">Items/Services</button></a>
-                        <a href="/admin/users"><button className="userButton">Users</button></a>
+                        <Link to="/admin/discount-codes"><button className="invoiceButton">Discount Codes</button></Link>
+                        <Link to="/admin/items"><button className="paymentButton">Items/Services</button></Link>
+                        <Link to="/admin/users"><button className="userButton">Users</button></Link>
                     </div>
                 </div>
             </section>

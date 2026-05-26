@@ -1,6 +1,7 @@
 import './Hero.css'
 import './main.css'
 import NavBar from './NavBar'
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
     return (
@@ -13,8 +14,8 @@ export default function Hero() {
                     <h1 className="welcomeTitle">Welcome, Employee User!</h1>
 
                     <div className="buttonContainer">
-                        <a href="/invoices"><button className="invoiceButton">Invoices</button></a>
-                        <a href="/payments"><button className="paymentButton">Payments</button></a>
+                        <Link to="/invoices"><button className="invoiceButton">Invoices</button></Link>
+                        <Link to="/payments"><button className="paymentButton">Payments</button></Link>
                     </div>
                 </div>
             </section>
