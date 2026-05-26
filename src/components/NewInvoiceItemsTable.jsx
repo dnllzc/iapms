@@ -20,14 +20,7 @@ export default function NewInvoiceItemsTable({ items, onRemoveItem }) {
                             <td>{element.quantity}</td>
                             <td>
                                 <div className="newInvoiceActions">
-                                    <button
-                                        className="quantityButton"
-                                        type="button"
-                                        aria-label={`Remove ${element.name}`}
-                                        onClick={() => onRemoveItem(element.id)}
-                                    >
-                                        x
-                                    </button>
+                                    <button className="quantityButton" type="button" aria-label={`Remove ${element.name}`} onClick={() => onRemoveItem(element.id)}>x</button>
                                 </div>
                             </td>
                         </tr>
