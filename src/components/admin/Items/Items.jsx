@@ -1,6 +1,6 @@
 import './Items.css'
-import '../main.css'
-import NavBar from './NavBar'
+import '../../main.css'
+import NavBar from '../NavBar'
 import ItemList from './ItemList'
 
 export default function Items() {

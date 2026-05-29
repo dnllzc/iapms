@@ -6,9 +6,9 @@ import NewInvoice from './components/invoices/NewInvoice.jsx'
 import Payments from './components/payments/Payments.jsx'
 
 import AdminHero from './components/admin/AdminHero.jsx'
-import Users from './components/admin/Users.jsx'
-import DiscountCodes from './components/admin/DiscountCodes.jsx'
-import Items from './components/admin/Items.jsx'
+import Users from './components/admin/Users/Users.jsx'
+import DiscountCodes from './components/admin/DiscountCodes/DiscountCodes.jsx'
+import Items from './components/admin/Items/Items.jsx'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 

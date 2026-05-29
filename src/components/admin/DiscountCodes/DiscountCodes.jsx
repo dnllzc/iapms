@@ -1,6 +1,6 @@
 import './DiscountCodes.css'
-import '../main.css'
-import NavBar from './NavBar'
+import '../../main.css'
+import NavBar from '../NavBar'
 import DiscountCodesList from './DiscountCodesList'
 
 export default function DiscountCodes() {

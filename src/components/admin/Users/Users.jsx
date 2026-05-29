@@ -1,6 +1,6 @@
 import './Users.css'
-import '../main.css'
-import NavBar from './NavBar'
+import '../../main.css'
+import NavBar from '../NavBar'
 import UserList from './UserList'
 
 export default function Users() {
