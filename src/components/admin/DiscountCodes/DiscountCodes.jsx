@@ -2,6 +2,7 @@ import './DiscountCodes.css'
 import '../../main.css'
 import NavBar from '../NavBar'
 import DiscountCodesList from './DiscountCodesList'
+import { Link } from 'react-router-dom'
 
 export default function DiscountCodes() {
     return (
@@ -12,7 +13,7 @@ export default function DiscountCodes() {
             <section className="discountCodePage">
                 <section className="discountCodeHeader">
                     <h1 className="discountCodeTitle">Discount Codes</h1>
-                    <button className="newDiscountCodeButton">New Discount Code</button>
+                    <Link to="/admin/discount-codes/new"><button className="newDiscountCodeButton">New Discount Code</button></Link>
                 </section>
 
                 <section className="discountCodeFilters">
