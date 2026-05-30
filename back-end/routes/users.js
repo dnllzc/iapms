@@ -13,13 +13,80 @@ const getUsers = () => {
     });
 }
 
+const createUser = (first_name, last_name, email, password, role) => {
+    return new Promise((resolve, reject) => {
+        conn.query('INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)', [first_name, last_name, email, password, role], (err, result) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
+const deleteUser = (id) => {
+    return new Promise((resolve, reject) => {
+        conn.query('DELETE FROM users WHERE id = ?', [id], (err, result) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
+const editUser = (id, first_name, last_name, email, password, role) => {
+    return new Promise((resolve, reject) => {
+        conn.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, role = ? WHERE id = ?', [first_name, last_name, email, password, role, id], (err, result) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    });
+}
+
 const router = Router();
 router.get('/', async (req, res, next) => {
     try {
         const users = await getUsers();
         res.json(users);
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/new', async (req, res, next) => {
+    try {
+        const { first_name, last_name, email, password, role } = req.body;
+        const result = await createUser(first_name, last_name, email, password, role);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/delete', async (req, res, next) => {
+    try {        
+        const { id } = req.body;
+        const result = await deleteUser(id);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/edit/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { first_name, last_name, email, password, role } = req.body;
+        const result = await editUser(id, first_name, last_name, email, password, role);
+        res.json(result);
+    } catch (err) {
+        next(err);
     }
 });
 
