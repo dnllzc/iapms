@@ -10,7 +10,7 @@ export default function Users() {
                 <NavBar />
             </section>
             <section className="userPage">
-                <section className="invoiceHeader">
+                <section className="userHeader">
                     <h1 className="userTitle">Users</h1>
                     <button className="newUserButton">New User</button>
                 </section>
