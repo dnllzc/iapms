@@ -79,12 +79,27 @@ router.post('/delete', async (req, res, next) => {
     }
 });
 
-router.post('/edit/:id', async (req, res, next) => {
+router.put('/edit/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
         const { first_name, last_name, email, password, role } = req.body;
         const result = await editUser(id, first_name, last_name, email, password, role);
         res.json(result);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const users = await getUsers();
+        const user = users.find(u => u.id === parseInt(id));
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+        res.json(user);
     } catch (err) {
         next(err);
     }

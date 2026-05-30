@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function UserList() {
     const [users, setUsers] = useState([])
@@ -18,6 +19,35 @@ export default function UserList() {
                 console.error('Error fetching users:', error)
             })
     }, [])
+
+    const handleDelete = (id, first_name, last_name) => {
+        return async () => {
+            if (!window.confirm('Delete user (#'+ id+ ') ' + first_name + ' ' + last_name + '?')) return
+
+            const payload = { id }
+
+            try {
+                const response = await fetch('/api/users/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                })
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete user')
+                }
+
+                // remove from local state
+                setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
+                window.alert(`User (${id}) ${first_name} ${last_name} deleted successfully`)
+            } catch (error) {
+                console.error('Error deleting user:', error)
+                window.alert('Failed to delete user')
+            }
+        }
+    }
 
     const sortedUsers = [...users].sort((a, b) => a.id - b.id)
     
@@ -43,8 +73,8 @@ export default function UserList() {
                                     <td>{element.role}</td>
                                     <td>
                                         <div className="userActions">
-                                            <button className="userActionButton" id="deleteButton">Delete</button>
-                                            <button className="userActionButton" id="editButton">Edit</button>
+                                            <button className="userActionButton" id="deleteButton" onClick={handleDelete(element.id, element.first_name, element.last_name)}>Delete</button>
+                                            <Link to={`/admin/users/edit/${element.id}`}><button className="userActionButton" id="editButton">Edit</button></Link>
                                             <button className="userActionButton" id="resetPasswordButton">Reset PW</button>
                                         </div>
                                     </td>

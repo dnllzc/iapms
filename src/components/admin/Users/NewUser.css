@@ -1,0 +1,167 @@
+.newUserPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: min(1400px, calc(100% - 32px));
+    margin: 0px auto 0;
+    padding: 24px 0 16px;
+}
+
+.newUserInfo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1;
+    min-height: 0;
+    padding: 0 16px 16px;
+    box-sizing: border-box;
+}
+
+.newUserHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+}
+
+.newUserTitle {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.newUserForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(100%, 460px);
+    min-height: 100%;
+    padding: 24px 20px 28px;
+    border-radius: 34px;
+    background: rgba(247, 244, 250, 0.96);
+    box-sizing: border-box;
+    box-shadow: 0 12px 32px rgba(31, 21, 63, 0.12);
+}
+
+.newUserForm .newUserInput,
+.newUserForm select.newUserInput {
+    width: 100%;
+    height: 42px;
+    border-radius: 4px;
+    border: 2px solid #2f224f;
+    padding: 0 12px;
+    box-sizing: border-box;
+    background: #fff;
+    color: #2f224f;
+    font-size: 16px;
+}
+
+.newUserForm .newUserInput::placeholder {
+    color: #b4aec2;
+    opacity: 1;
+}
+
+.newUserForm select.newUserInput {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #2f224f 50%), linear-gradient(135deg, #2f224f 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+}
+
+.newUserRole {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin: 8px 0 4px;
+    padding: 6px 4px 2px;
+}
+
+.newUserRadioOption {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #2f224f;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+
+.newUserRadioOption input[type='radio'] {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    accent-color: #2f224f;
+}
+
+.newUserButtons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 54px;
+}
+
+.newUserActionButton {
+    min-width: 112px;
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 4px;
+    border: 1px solid #2f224f;
+    background-color: darkmagenta;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    width: auto;
+    box-sizing: border-box;
+}
+
+.newUserActions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+    .newUserPage {
+        width: min(100% - 16px, 1400px);
+        padding-top: 16px;
+    }
+
+    .newUserTitle {
+        font-size: 34px;
+    }
+
+    .newUserForm {
+        width: 100%;
+        border-radius: 24px;
+        padding: 20px 16px 24px;
+    }
+
+    .newUserButtons {
+        margin-top: 32px;
+        flex-direction: column;
+    }
+
+    .newUserActionButton {
+        width: 100%;
+    }
+
+    .newUserRole {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}

@@ -2,6 +2,7 @@ import './Users.css'
 import '../../main.css'
 import NavBar from '../NavBar'
 import UserList from './UserList'
+import { Link } from 'react-router-dom'
 
 export default function Users() {
     return (
@@ -12,7 +13,7 @@ export default function Users() {
             <section className="userPage">
                 <section className="userHeader">
                     <h1 className="userTitle">Users</h1>
-                    <button className="newUserButton">New User</button>
+                    <Link to="/admin/users/new"><button className="newUserButton">New User</button></Link>
                 </section>
 
                 <section className="userFilters">
