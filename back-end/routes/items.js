@@ -91,7 +91,7 @@ router.post('/delete', async (req, res, next) => {
     }
 })
 
-router.post('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
         const itemInfo = await getItemInfo(id);
@@ -101,7 +101,7 @@ router.post('/:id', async (req, res, next) => {
     }
 })
 
-router.post('/edit/:id', async (req, res, next) => {
+router.put('/edit/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
         const { name, description, price } = req.body;

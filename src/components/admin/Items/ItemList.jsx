@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function ItemList() {
     const [items, setItems] = useState([])
@@ -20,6 +21,35 @@ export default function ItemList() {
     }, [])
 
     const sortedItems = [...items].sort((a, b) => a.id - b.id)
+
+    const handleDelete = (id, name) => {
+        return async () => {
+            if (!window.confirm('Delete item (#'+ id+ ') ' + name + '?')) return
+
+            const payload = { id }
+
+            try {
+                const response = await fetch('/api/items/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                })
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete item')
+                }
+
+                // remove from local state
+                setItems((prevItems) => prevItems.filter((item) => item.id !== id))
+                window.alert(`Item (${id}) ${name} deleted successfully`)
+            } catch (error) {
+                console.error('Error deleting item:', error)
+                window.alert('Failed to delete item')
+            }
+        }
+    }
     
     return (
         <table className="itemTable">
@@ -41,8 +71,8 @@ export default function ItemList() {
                                     <td>{Number(element.price).toFixed(2)}</td>
                                     <td>
                                         <div className="itemActions">
-                                            <button className="itemActionButton" id="deleteButton">Delete</button>
-                                            <button className="itemActionButton" id="editButton">Edit</button>
+                                            <button className="itemActionButton" id="deleteButton" onClick={handleDelete(element.id, element.name)}>Delete</button>
+                                            <Link to={`/admin/items/edit/${element.id}`}><button className="itemActionButton" id="editButton">Edit</button></Link>
                                             <button className="itemActionButton" id="copyItemButton">Copy</button>
                                         </div>
                                     </td>

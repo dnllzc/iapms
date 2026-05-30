@@ -20,6 +20,7 @@ import NewDiscountCode from './components/admin/DiscountCodes/NewDiscountCode.js
 
 // Items
 import Items from './components/admin/Items/Items.jsx'
+import NewItem from './components/admin/Items/NewItem.jsx'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -39,6 +40,8 @@ export default function AppRouter() {
                 <Route path="/admin/discount-codes/new" element={<NewDiscountCode />} />
                 <Route path="/admin/discount-codes/edit/:id" element={<NewDiscountCode />} />
                 <Route path="/admin/items" element={<Items />} />
+                <Route path="/admin/items/new" element={<NewItem />} />
+                <Route path="/admin/items/edit/:id" element={<NewItem />} />
             </Routes>
         </BrowserRouter>
     )

@@ -2,6 +2,7 @@ import './Items.css'
 import '../../main.css'
 import NavBar from '../NavBar'
 import ItemList from './ItemList'
+import { Link } from 'react-router-dom'
 
 export default function Items() {
     return (
@@ -12,7 +13,7 @@ export default function Items() {
             <section className="itemPage">
                 <section className="itemHeader">
                     <h1 className="itemTitle">Items</h1>
-                    <button className="newItemButton">New Item</button>
+                    <Link to="/admin/items/new"><button className="newItemButton">New Item</button></Link>
                 </section>
 
                 <section className="itemFilters">
