@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function DiscountCodesList() {
     const [discountCodes, setDiscountCodes] = useState([])
@@ -89,7 +90,7 @@ export default function DiscountCodesList() {
                                     <td>
                                         <div className="discountCodeActions">
                                             <button className="discountCodeActionButton" id="deleteButton" onClick={handleDelete(element.id)}>Delete</button>
-                                            <button className="discountCodeActionButton" id="editButton">Edit</button>
+                                            <Link to={`/admin/discount-codes/edit/${element.id}`}><button className="discountCodeActionButton" id="editButton">Edit</button></Link>
                                             <button className="discountCodeActionButton" id="copyCodeButton" onClick={handleCopyClick}>Copy</button>
                                         </div>
                                     </td>

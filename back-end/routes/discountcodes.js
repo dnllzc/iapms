@@ -25,6 +25,30 @@ const createDiscountCode = (code, discount_type, value, expiration_date) => {
     });
 }
 
+const getCodeInfo = (id) => {
+    return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM discount_code WHERE id = ?', [id], (err, rows, fields) => {
+            if (err) {
+                reject(err);
+                return;
+            } 
+            resolve(rows[0]);
+        });
+    });
+}
+
+const updateCodeInfo = (id, code, discount_type, value, expiration_date) => {
+    return new Promise((resolve, reject) => {
+        conn.query('UPDATE discount_code SET code = ?, discount_type = ?, value = ?, expiration_date = ? WHERE id = ?', [code, discount_type, value, expiration_date, id], (err, result) => {
+            if (err) {
+                reject(err);
+                return;
+            } 
+            resolve(result);
+        });
+    });
+}
+
 const router = Router();
 router.get('/', async (req, res, next) => {
     try {
@@ -55,6 +79,27 @@ router.post('/delete', async (req, res, next) => {
             } 
             res.json(result);
         });
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.get('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const codeInfo = await getCodeInfo(id);
+        res.json(codeInfo);
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.put('/edit/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { code, discount_type, value, expiration_date } = req.body;
+        const result = await updateCodeInfo(id, code, discount_type, value, expiration_date);
+        res.json(result);
     } catch (err) {
         next(err);
     }

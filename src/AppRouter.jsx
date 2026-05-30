@@ -37,6 +37,7 @@ export default function AppRouter() {
                 <Route path="/admin/users" element={<Users />} />
                 <Route path="/admin/discount-codes" element={<DiscountCodes />} />
                 <Route path="/admin/discount-codes/new" element={<NewDiscountCode />} />
+                <Route path="/admin/discount-codes/edit/:id" element={<NewDiscountCode />} />
                 <Route path="/admin/items" element={<Items />} />
             </Routes>
         </BrowserRouter>
