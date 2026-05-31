@@ -19,6 +19,9 @@ export default function InvoiceList() {
             })
     }, [])
 
+    const formatDate = (dateString) =>
+        new Date(dateString).toLocaleDateString('en-GB');
+
     // Sort invoices by id in decreasing order
     const sortedInvoices = [...invoices].sort((a, b) => b.id - a.id)
     
@@ -38,9 +41,9 @@ export default function InvoiceList() {
                             {sortedInvoices.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
-                                    <td>{element.date}</td>
-                                    <td>{element.name}</td>
-                                    <td>{element.email}</td>
+                                    <td>{formatDate(element.created_at)}</td>
+                                    <td>{element.client_name}</td>
+                                    <td>{element.client_email}</td>
                                     <td>{element.status}</td>
                                     <td>
                                         <div className="invoiceActions">

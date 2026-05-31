@@ -105,4 +105,29 @@ router.put('/edit/:id', async (req, res, next) => {
     }
 })
 
+router.post('/check', async (req, res, next) => {
+    try {
+        const { code } = req.body;
+        conn.query('SELECT * FROM discount_code WHERE code = ?', [code], (err, rows, fields) => {
+            if (err) {
+                next(err);
+                return;
+            } 
+            if (rows.length === 0) {
+                res.status(404).json({ message: 'Discount code not found' });
+                return;
+            }
+            const discountCode = rows[0];
+            const currentDate = new Date();
+            if (discountCode.expiration_date < currentDate) {
+                res.status(400).json({ message: 'Discount code has expired' });
+                return;
+            }
+            res.json(discountCode);
+        });
+    } catch (err) {
+        next(err);
+    }
+})
+
 export default router

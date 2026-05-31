@@ -80,11 +80,33 @@
     font-weight: 700;
 }
 
+.discountInfoRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    align-self: flex-end;
+    margin-top: 4px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(31, 21, 63, 0.96);
+    color: white;
+    font-size: 14px;
+}
+
 .totalAmountLabel {
     opacity: 0.9;
 }
 
 .totalAmountValue {
+    white-space: nowrap;
+}
+
+.discountInfoLabel {
+    opacity: 0.9;
+}
+
+.discountInfoValue {
     white-space: nowrap;
 }
 
