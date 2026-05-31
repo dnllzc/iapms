@@ -9,6 +9,7 @@ import NewInvoice from './components/invoices/NewInvoice.jsx'
 
 // Payments
 import Payments from './components/payments/Payments.jsx'
+import PaymentLink from './components/payments/PaymentLink.jsx'
 
 // ================== Admin ==================
 // Users
@@ -37,6 +38,7 @@ export default function AppRouter() {
                 <Route path="/invoices/new" element={<NewInvoice />} />
 
                 <Route path="/payments" element={<Payments />} />
+                <Route path="/pay/:id" element={<PaymentLink />} />
 
                 {/* Admin Routes */}
                 <Route path="/admin" element={<AdminHero />} />
