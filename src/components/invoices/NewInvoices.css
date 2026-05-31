@@ -50,7 +50,7 @@
 
 .addedItemsTitle {
     margin: 8px 0 0;
-    color: #1f153f;
+    color: white;
     font-size: 20px;
     font-weight: 700;
 }
@@ -282,6 +282,18 @@
     font-size: 28px;
     cursor: pointer;
     min-width: 88px;
+}
+
+.applyDiscountButton {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: darkmagenta;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    height: 44px;
+    width: auto;
 }
 
 @media (max-width: 960px) {

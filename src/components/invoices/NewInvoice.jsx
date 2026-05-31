@@ -44,6 +44,10 @@ export default function NewInvoice() {
         setAddedItems((currentItems) => currentItems.filter((item) => item.id !== itemId))
     }
 
+    const handleApplyDiscount = () => {
+        // TODO
+    }
+
     return (
         <>
             <section className="navBar">
@@ -57,6 +61,7 @@ export default function NewInvoice() {
                             <input className="newInvoiceInput" id="clientName" name="clientName" placeholder="Client Name" required />
                             <input className="newInvoiceInput" id="clientEmail" name="clientEmail" type="email" placeholder="Client Email" required />
                             <input className="newInvoiceInput" id="discountCode" name="discountCode" placeholder="Discount Code" />
+                            <button className="newInvoiceButton" id="applyDiscountButton" type="button">Apply Discount</button>
 
                             <div className="addedItems">
                             <h3 className="addedItemsTitle">Item List</h3>

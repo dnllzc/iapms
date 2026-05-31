@@ -12,7 +12,7 @@ export default defineConfig({
       },
     },
     host: '0.0.0.0',
-    allowedHosts: ['localhost', '0.0.0.0'],
+    allowedHosts: 'all',
     port: 30092,
   },
 })
