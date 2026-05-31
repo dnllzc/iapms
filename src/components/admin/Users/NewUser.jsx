@@ -125,7 +125,7 @@ export default function NewUser() {
                             </label>
                         </div>
                         <div className="newUserButtons">
-                            <Link to="/admin/discount-codes"><button className="newUserActionButton" id="newUserCancelButton" type="button">Cancel</button></Link>
+                            <Link to="/admin/users"><button className="newUserActionButton" id="newUserCancelButton" type="button">Cancel</button></Link>
                             <button className="newUserActionButton" id="newUserCodeSaveButton" type="submit">Save</button>
                         </div>
                     </form>
