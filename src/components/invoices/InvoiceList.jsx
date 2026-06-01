@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { Link } from 'react-router-dom'
 
 export default function InvoiceList() {
     const [invoices, setInvoices] = useState([])
@@ -48,7 +49,9 @@ export default function InvoiceList() {
                                     <td>{element.status}</td>
                                     <td>
                                         <div className="invoiceActions">
-                                            <button className="invoiceActionButton" id="detailsButton">Details</button>
+                                            <Link to={`/invoices/details/` + element.id}>
+                                                <button className="invoiceActionButton" id="detailsButton">Details</button>
+                                            </Link>
                                             <button className="invoiceActionButton" id="printButton">Print PDF</button>
                                             <CopyToClipboard text={`http://88.200.63.148:30092/pay/` + element.id} onCopy={() => alert("Link copied to clipboard!")}>
                                                 <button className="invoiceActionButton" id="copyLinkButton">Copy Link</button>

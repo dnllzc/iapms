@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function PaymentList() {
     const [payments, setPayments] = useState([])
@@ -76,7 +77,9 @@ export default function PaymentList() {
                                     <td>
                                         <div className="paymentActions">
                                             <button className="paymentActionButton" id="detailsButton">Print PDF</button>
-                                            <button className="paymentActionButton" id="printButton">Details</button>
+                                            <Link to={'/payments/details/' + element.id}>
+                                                <button className="paymentActionButton" id="detailsButton">Details</button>
+                                            </Link>
                                         </div>
                                     </td>
                                 </tr>

@@ -1,0 +1,285 @@
+.detailsPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: min(1400px, calc(100% - 32px));
+    margin: 0px auto 0;
+    padding: 24px 0 16px;
+}
+
+.detailsPanel {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+    width: 100%;
+    min-height: 0;
+    padding: 0 16px;
+    padding: 28px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    justify-content: center;
+    align-items: stretch;
+    text-align: left;
+    flex-wrap: nowrap;
+    flex: 1;
+}
+
+.detailsHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+}
+
+.leftPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    align-items: center;
+    overflow: auto;
+    padding: 28px;
+    border-radius: 12px;
+    background: rgba(31, 21, 63, 0.96);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.rightPanel {
+    display: flex;
+    gap: 12px;
+    text-align: left;
+    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: flex-start;
+    overflow: auto;
+    padding-left: 4px;
+}
+
+.detailsInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.detailsBottomInfo {
+    width: 100%;
+    max-width: 520px;
+    margin: 40px auto 0;
+}
+
+.detailsInfoRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    box-sizing: border-box;
+}
+
+.detailsInfoRowEmphasis {
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+}
+
+.detailsInfoLabel {
+    opacity: 0.9;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.detailsInfoValue {
+    text-align: right;
+    word-break: break-word;
+}
+
+.detailsTitle {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+    width: 100%;
+    max-width: 520px;
+    text-align: left;
+}
+
+.detailsActionButton {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    padding: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+}
+
+.paymentLinkItemTableShell {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    overflow: visible;
+    min-height: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.paymentLinkTable {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+.paymentLinkItemTable {
+    min-width: 100%;
+}
+
+.addedItemsShell .paymentLinkTable {
+    min-width: 100%;
+    width: 100%;
+}
+
+.paymentLinkTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: darkslategrey;
+    text-align: left;
+    padding: 16px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.paymentLinkTable tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    text-align: left;
+}
+
+.paymentLinkTable tbody td:last-child {
+    padding: 10px 8px;
+}
+
+.paymentLinkTable tbody tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.paymentLinkTable tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.paymentLinkItemTable .paymentLinkTable tbody td,
+.paymentLinkItemTable tbody td {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 960px) {
+    .detailsPanel {
+        flex-wrap: wrap;
+    }
+
+    .leftPanel,
+    .rightPanel {
+        flex: 1 1 100%;
+        max-width: none;
+        min-width: 0;
+        overflow: visible;
+        padding: 20px;
+    }
+
+    .detailsInfo,
+    .detailsTitle {
+        max-width: none;
+    }
+}
+
+.detailsButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 520px;
+}
+
+.detailsButtons label {
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    margin-top: 8px;
+    display: block;
+    text-align: left;
+}
+
+.detailsButtons .paymentCardInput {
+    margin-top: 6px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid black;
+    width: 100%;
+    height: 44px;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+}
+
+.printButton, .copyButton, .cancelButton {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: darkmagenta;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.detailsButtons .printButton {
+    font-size: 24px;
+}
+
+.paymentProcessText {
+    opacity: 0.9;
+    font-weight: 600;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+    margin: 0;
+    flex: 1;
+}
+
+.paymentProcessRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    box-sizing: border-box;
+}
+
+.paymentProcessRowEmphasis {
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+}

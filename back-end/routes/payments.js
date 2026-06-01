@@ -13,6 +13,19 @@ const getPayments = () => {
     });
 }
 
+const getPaymentDetails = (invoice_id) => {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT * FROM payment WHERE invoice_id = ?"
+        conn.query(query, [invoice_id], (err, rows, fields) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows[0]);
+        });
+    })
+}
+
 const getPaymentInfo = (invoice_id) => {
     return new Promise((resolve, reject) => {
         const query = `
@@ -36,6 +49,24 @@ router.get('/', async (req, res, next) => {
     try {
         const payments = await getPayments();
         res.json(payments);
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.post('/details', async (req, res, next) => {
+    try {
+        const invoiceId = Number(req.body?.invoice_id)
+        if (!Number.isInteger(invoiceId) || invoiceId <= 0) {
+            res.status(400).json({ error: 'invoice_id must be a positive integer' })
+            return
+        }
+        const payment = await getPaymentDetails(invoiceId)
+        if (!payment) {
+            res.status(404).json({ error: 'Payment not found for the given invoice_id' })
+            return
+        }
+        res.json(payment)
     } catch (err) {
         next(err);
     }

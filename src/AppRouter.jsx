@@ -6,11 +6,13 @@ import Auth from './components/Auth.jsx'
 // Invoices
 import Invoices from './components/invoices/Invoices.jsx'
 import NewInvoice from './components/invoices/NewInvoice.jsx'
+import DetailsPageInv from './components/invoices/DetailsPage.jsx'
 
 // Payments
 import Payments from './components/payments/Payments.jsx'
 import PaymentLink from './components/payments/PaymentLink.jsx'
 import PaymentDone from './components/payments/PaymentDone.jsx'
+import DetailsPagePay from './components/payments/DetailsPage.jsx'
 
 // ================== Admin ==================
 // Users
@@ -37,10 +39,12 @@ export default function AppRouter() {
 
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/invoices/new" element={<NewInvoice />} />
+                <Route path="/invoices/details/:id" element={<DetailsPageInv />} />
 
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/pay/:id" element={<PaymentLink />} />
                 <Route path="/payment-done/:id" element={<PaymentDone />} />
+                <Route path="/payments/details/:id" element={<DetailsPagePay />} />
 
                 {/* Admin Routes */}
                 <Route path="/admin" element={<AdminHero />} />
