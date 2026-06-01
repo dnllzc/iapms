@@ -47,7 +47,7 @@ export default function PaymentLinkItemTable({ invoice_id }) {
                 {items.map(item => (
                     <tr key={item.item_id}>
                         <td>{item.name}</td>
-                        <td>{item.price}</td>
+                        <td>{item.price.toFixed(2)}€</td>
                         <td>{item.quantity}</td>
                     </tr>
                 ))}

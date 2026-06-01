@@ -93,4 +93,24 @@ router.post('/additems', async (req, res, next) => {
     }
 })
 
+router.get('/:id', async (req, res, next) => {
+    try {
+        const invoiceId = req.params.id;
+        const query = 'SELECT * FROM invoice WHERE id = ?';
+        conn.query(query, [invoiceId], (err, rows) => {
+            if (err) {
+                next(err);
+                return;
+            }
+            if (rows.length === 0) {
+                res.status(404).json({ message: 'Invoice not found' });
+                return;
+            }
+            res.json(rows[0]);
+        });
+    } catch (err) {
+        next(err);
+    }
+})
+
 export default router

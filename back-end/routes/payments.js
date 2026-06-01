@@ -56,4 +56,42 @@ router.post('/info', async (req, res, next) => {
     }
 })
 
+router.post('/process', async (req, res, next) => {
+    try {
+        const invoiceId = Number(req.body?.invoice_id)
+        if (!Number.isInteger(invoiceId) || invoiceId <= 0) {
+            res.status(400).json({ error: 'invoice_id must be a positive integer' })
+            return
+        }
+        const query_inv = "UPDATE invoice SET status = 'paid' WHERE id = ?"
+        const query_pay = "INSERT INTO payment (amount, status, payment_date, invoice_id) VALUES (?, 'success', NOW(), ?)"
+
+        conn.query(query_inv, [invoiceId], (err, result) => {
+            if (err) {
+                next(err)
+                return
+            }
+            if (result.affectedRows === 0) {
+                res.status(404).json({ error: 'Invoice not found' })
+                return
+            }
+            // Amount is passed in body
+            const amount = Number(req.body?.total_amount)
+            if (isNaN(amount) || amount < 0) {
+                res.status(400).json({ error: 'total_amount must be a non-negative number' })
+                return
+            }
+            conn.query(query_pay, [amount, invoiceId], (err, result) => {
+                if (err) {
+                    next(err)
+                    return
+                }
+                res.json({ message: 'Payment marked as paid successfully' })
+            })
+        })
+    } catch (err) {
+        next(err);
+    }
+})
+
 export default router
