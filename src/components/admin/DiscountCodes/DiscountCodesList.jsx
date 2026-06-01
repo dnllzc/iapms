@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 export default function DiscountCodesList() {
     const [discountCodes, setDiscountCodes] = useState([])
@@ -53,19 +54,6 @@ export default function DiscountCodesList() {
             }
         }
     }
-
-    const handleCopyClick = async () => {
-        try {
-            await window.navigator.clipboard.writeText(text);
-            alert("Copied to clipboard!");
-        } catch (err) {
-            console.error(
-                "Unable to copy to clipboard.",
-                err
-            );
-            alert("Copy to clipboard failed.");
-        }
-    };
     
     return (
         <table className="discountCodeTable">
@@ -91,7 +79,9 @@ export default function DiscountCodesList() {
                                         <div className="discountCodeActions">
                                             <button className="discountCodeActionButton" id="deleteButton" onClick={handleDelete(element.id)}>Delete</button>
                                             <Link to={`/admin/discount-codes/edit/${element.id}`}><button className="discountCodeActionButton" id="editButton">Edit</button></Link>
-                                            <button className="discountCodeActionButton" id="copyCodeButton" onClick={handleCopyClick}>Copy</button>
+                                            <CopyToClipboard text={element.code} onCopy={() => alert("Code copied to clipboard!")}>
+                                                <button className="discountCodeActionButton" id="copyCodeButton">Copy</button>
+                                            </CopyToClipboard>
                                         </div>
                                     </td>
                                 </tr>
