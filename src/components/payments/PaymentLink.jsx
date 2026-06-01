@@ -79,13 +79,22 @@ export default function PaymentLink() {
                     <div className="leftPanel">
                         <h2 className="paymentLinkTitle">Make a payment</h2>
                         <div className="paymentInfo">
-                            <p className="clientInfoLabel">Invoice ID:</p>
-                            <p className="clientInfoValue" id='invoiceId'>{invoiceId}</p>
-                            <p className="clientInfoLabel">Issued to:</p>
-                            <p className="clientInfoValue" id='clientName'>{clientName}</p>
-                            <p className="clientInfoLabel" id='clientEmail'>{clientEmail}</p>
-                            <p className="clientInfoLabel">Amount Due:</p>
-                            <p className="clientInfoValue" id='amountDue'>{amountDue.toFixed(2)}€</p>
+                            <div className="paymentInfoRow">
+                                <span className="paymentInfoLabel">Invoice ID:</span>
+                                <span className="paymentInfoValue" id="invoiceId">{invoiceId}</span>
+                            </div>
+                            <div className="paymentInfoRow">
+                                <span className="paymentInfoLabel">Issued to:</span>
+                                <span className="paymentInfoValue" id="clientName">{clientName}</span>
+                            </div>
+                            <div className="paymentInfoRow">
+                                <span className="paymentInfoLabel">Client email:</span>
+                                <span className="paymentInfoValue" id="clientEmail">{clientEmail}</span>
+                            </div>
+                            <div className="paymentInfoRow paymentInfoRowEmphasis">
+                                <span className="paymentInfoLabel">Amount Due:</span>
+                                <span className="paymentInfoValue" id="amountDue">{amountDue.toFixed(2)}€</span>
+                            </div>
                         </div>
                         <div className="paymentProcess">
                             <form className="paymentForm" onSubmit={handleSubmit}>

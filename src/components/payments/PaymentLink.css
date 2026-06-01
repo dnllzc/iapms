@@ -18,12 +18,19 @@
     width: 100%;
     min-height: 0;
     padding: 0 16px;
-    box-sizing: border-box;
+    padding: 28px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    justify-content: center;
+    align-items: stretch;
+    text-align: left;
     flex-wrap: nowrap;
     flex: 1;
 }
 
 .paymentLinkHeader {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,13 +44,20 @@
     gap: 12px;
     flex: 1 1 0;
     min-width: 0;
+    width: 100%;
+    align-items: center;
     overflow: auto;
-    padding-right: 4px;
+    padding: 28px;
+    border-radius: 12px;
+    background: rgba(31, 21, 63, 0.96);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
 .rightPanel {
     display: flex;
     gap: 12px;
+    text-align: left;
+    width: 100%;
     flex: 1 1 0;
     min-width: 0;
     justify-content: flex-start;
@@ -55,6 +69,38 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.paymentInfoRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    box-sizing: border-box;
+}
+
+.paymentInfoRowEmphasis {
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+}
+
+.paymentInfoLabel {
+    opacity: 0.9;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.paymentInfoValue {
+    text-align: right;
+    word-break: break-word;
 }
 
 .paymentLinkTitle {
@@ -62,14 +108,16 @@
     font-size: 48px;
     font-weight: bold;
     margin: 0;
+    width: 100%;
+    max-width: 520px;
+    text-align: left;
 }
 
 .paymentLinkActionButton {
     padding: 6px 8px;
     border-radius: 6px;
     border: none;
-    background-color: darkmagenta;
-    color: white;
+    padding: 20px;
     font-size: 14px;
     cursor: pointer;
     height: auto;
@@ -150,8 +198,12 @@
         max-width: none;
         min-width: 0;
         overflow: visible;
-        padding-left: 0;
-        padding-right: 0;
+        padding: 20px;
+    }
+
+    .paymentInfo,
+    .paymentLinkTitle {
+        max-width: none;
     }
 }
 
@@ -159,6 +211,8 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
+    max-width: 520px;
 }
 
 .paymentForm label {
@@ -166,6 +220,7 @@
     font-weight: 600;
     margin-top: 8px;
     display: block;
+    text-align: left;
 }
 
 .paymentForm .paymentCardInput {
