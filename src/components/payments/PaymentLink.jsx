@@ -53,9 +53,24 @@ export default function PaymentLink() {
             })
     }
 
+    const checkPaidStatus = () => {
+        fetch(`/api/invoices/${invoiceId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'paid') {
+                    alert('This invoice has already been paid.')
+                    //window.location.href = '/invoices'
+                }
+            })
+    }
+
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])
+
+    useEffect(() => {
+        checkPaidStatus()
+    })
 
     return (
         <>
