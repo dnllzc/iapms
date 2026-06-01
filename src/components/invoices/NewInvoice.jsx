@@ -76,7 +76,25 @@ export default function NewInvoice() {
                 return res.json()
             }).then(() => {
                 alert('Invoice created successfully!')
-                window.location.href = '/invoices'
+                // here we update the payment link with the correct invoice ID
+                fetch('/api/invoice/update-link', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        invoice_id: createdInvoiceId,
+                        payment_link: `http://88.200.63.148:30092/pay/${createdInvoiceId}`,
+                    }),
+                }).then(res => {
+                    if (!res.ok) throw new Error(`Status ${res.status}`)
+                    return res.json()
+                }).then(() => {
+                    window.location.href = '/invoices'
+                }).catch(error => {
+                    console.error('Error updating payment link:', error)
+                    alert('Invoice created, but failed to update payment link.')
+                })
             }).catch(error => {
                 console.error('Error creating invoice items:', error)
                 alert('Error creating invoice items. Please try again later.')

@@ -74,6 +74,12 @@
     margin: 0 auto;
 }
 
+.paymentProcess {
+    width: 100%;
+    max-width: 520px;
+    margin: 40px auto 0;
+}
+
 .paymentInfoRow {
     display: flex;
     align-items: center;
@@ -235,7 +241,7 @@
     box-sizing: border-box;
 }
 
-.payButton, .paymentLinkActionButton {
+.payButton, .paymentLinkActionButton, .printButton {
     padding: 8px 14px;
     border-radius: 8px;
     border: none;
@@ -253,4 +259,33 @@
 .paymentForm input:focus {
     outline: 2px solid rgba(139, 0, 139, 0.15);
     outline-offset: 2px;
+}
+
+.paymentProcessText {
+    opacity: 0.9;
+    font-weight: 600;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+    margin: 0;
+    flex: 1;
+}
+
+.paymentProcessRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    box-sizing: border-box;
+}
+
+.paymentProcessRowEmphasis {
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 700;
 }

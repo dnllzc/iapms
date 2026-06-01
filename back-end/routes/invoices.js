@@ -53,6 +53,19 @@ const addItem = (data) => {
     })
 }
 
+const updateLink = (invoiceId, paymentLink) => {
+    return new Promise((resolve, reject) => {
+        const query = 'UPDATE invoice SET payment_link = ? WHERE id = ?';
+        conn.query(query, [paymentLink, invoiceId], (err, result) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    })
+}
+
 const router = Router();
 router.get('/', async (req, res, next) => {
     try {
@@ -108,6 +121,16 @@ router.get('/:id', async (req, res, next) => {
             }
             res.json(rows[0]);
         });
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.post('/update-link', async (req, res, next) => {
+    try {
+        const { invoice_id, payment_link } = req.body;
+        const result = await updateLink(invoice_id, payment_link);
+        res.json(result);
     } catch (err) {
         next(err);
     }
