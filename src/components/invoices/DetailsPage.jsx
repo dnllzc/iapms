@@ -26,24 +26,29 @@ export default function DetailsPage() {
                 setAmountDue(Number(data.total_amount) || 0)
                 setInvoiceDate(new Date(data.created_at).toLocaleString())
                 setStatus(data.status)
-                fetchDiscountCode(data.discount_code_id)
+                setDiscountCodeId(data.discount_code_id)
             })
     }
 
     const fetchDiscountCode = () => {
-        fetch(`/api/discountcodes/${discountCodeId}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.code) {
-                    if (data.discount_type === 'percentage') {
-                        setDiscountCode(`${data.code} (${data.value}% off)`)
-                    } else if (data.discount_type === 'fixed') {
-                        setDiscountCode(`${data.code} (${data.value.toFixed(2)}€ off)`)
-                    } else {
-                        setDiscountCode(data.code)
+        if (discountCodeId) {
+            fetch(`/api/discountcodes/${discountCodeId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code) {
+                        if (data.discount_type === 'percentage') {
+                            setDiscountCode(`${data.code} (${data.value}% off)`)
+                        } else if (data.discount_type === 'fixed') {
+                            setDiscountCode(`${data.code} (${data.value.toFixed(2)}€ off)`)
+                        } else {
+                            setDiscountCode(data.code)
+                        }
                     }
                 }
-            })
+            )
+        } else {
+            setDiscountCode('None')
+        }
     }
 
     const invalidateInvoice = () => {
@@ -68,6 +73,10 @@ export default function DetailsPage() {
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])
+
+    useEffect(() => {
+        fetchDiscountCode()
+    })
 
     return (
         <>
