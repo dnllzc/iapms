@@ -15,6 +15,7 @@ export default function DetailsPage() {
     const [invoiceDate, setInvoiceDate] = useState('')
     const [status, setStatus] = useState('')
     const [discountCode, setDiscountCode] = useState('None')
+    const [discountCodeId, setDiscountCodeId] = useState(null)
 
     const fetchInvoiceDetails = () => {
         fetch(`/api/invoices/${invoiceId}`)
@@ -25,12 +26,12 @@ export default function DetailsPage() {
                 setAmountDue(Number(data.total_amount) || 0)
                 setInvoiceDate(new Date(data.created_at).toLocaleString())
                 setStatus(data.status)
-                fetchDiscountCode()
+                fetchDiscountCode(data.discount_code_id)
             })
     }
 
     const fetchDiscountCode = () => {
-        fetch(`/api/discountcodes/${invoiceId}`)
+        fetch(`/api/discountcodes/${discountCodeId}`)
             .then(res => res.json())
             .then(data => {
                 if (data.code) {
