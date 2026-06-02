@@ -15,6 +15,26 @@ const getUsers = () => {
     });
 }
 
+const findUserById = (id) => {
+    return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM users WHERE id = ?', [id], (err, results) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+
+            resolve(Array.isArray(results) ? results[0] : null);
+        });
+    });
+}
+
+const buildSessionUser = (user) => ({
+    id: user.id,
+    fullName: `${user.first_name} ${user.last_name}`.trim(),
+    email: user.email,
+    role: user.role,
+})
+
 router.post('/', async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -29,7 +49,42 @@ router.post('/', async (req, res, next) => {
             return res.status(401).json({ success: false, message: 'Invalid email or password' });
         }
 
-        return res.json({ success: true, message: 'Login successful', user });
+        req.session.user = buildSessionUser(user);
+
+        return res.json({ success: true, message: 'Login successful', user: req.session.user });
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.get('/me', async (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.status(401).json({ success: false, message: 'Not authenticated' });
+        }
+
+        const user = await findUserById(req.session.user.id);
+        if (!user) {
+            req.session.destroy(() => {});
+            return res.status(401).json({ success: false, message: 'Not authenticated' });
+        }
+
+        return res.json({ success: true, user: buildSessionUser(user) });
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.post('/logout', (req, res, next) => {
+    try {
+        req.session.destroy((err) => {
+            if (err) {
+                return next(err);
+            }
+
+            res.clearCookie('connect.sid');
+            res.json({ success: true, message: 'Logged out' });
+        });
     } catch (err) {
         next(err);
     }
