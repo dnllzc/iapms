@@ -27,31 +27,6 @@ export default function DetailsPage() {
             })
     }
 
-    const checkPaidStatus = () => {
-        fetch(`/api/invoices/${invoiceId}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'pending') {
-                    alert('This invoice has not been paid yet. Redirecting...')
-                    window.location.href = `/pay/${invoiceId}`
-                } else {
-                    fetch('/api/payments/info', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ invoice_id: invoiceId })
-                    }).then(res => res.json())
-                    .then(paymentInfo => {
-                        if (paymentInfo.status === 'failed') {
-                            alert('The payment failed. \nPlease try again. Redirecting...')
-                            window.location.href = `/pay/${invoiceId}`
-                        }
-                     })
-                }
-            })
-    }
-
     const invalidateInvoice = () => {
         if (status === 'paid') {
             alert('Cannot invalidate a paid invoice.')
@@ -74,10 +49,6 @@ export default function DetailsPage() {
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])
-
-    useEffect(() => {
-        checkPaidStatus()
-    })
 
     return (
         <>
