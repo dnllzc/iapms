@@ -13,4 +13,28 @@
       text-decoration: underline;
     }
   }
+
+  button.navBarLogoutButton {
+    appearance: auto;
+    background: transparent;
+    border: 0;
+    color: white;
+    font-size: 18px;
+    font-family: inherit;
+    padding: 0;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.divider {
+  width: 1px;
+  background-color: white;
+  height: 24px;
+  align-self: center;
 }

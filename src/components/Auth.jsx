@@ -1,7 +1,10 @@
 import './main.css'
 import './Auth.css'
+import { useAuth } from '../context/AuthContext.jsx'
 
 export default function Auth() {
+    const { login } = useAuth()
+
     return (
         <section className="center">
             <h1 className="authTitle">Authentication</h1>
@@ -20,6 +23,7 @@ export default function Auth() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({ email, password }),
             })
 
@@ -31,15 +35,7 @@ export default function Auth() {
                 return
             }
 
-            console.log('Login successful:', data.user)
-
-            if (data.user.role === 'admin') {
-                alert('Login successful! Redirecting to admin dashboard...')
-                window.location.href = '/admin'
-            } else {
-                alert('Login successful! Redirecting to home page...')
-                window.location.href = '/home'
-            }
+            login(data.user)
         } catch (error) {
             console.error('Error during login:', error)
             alert('An error occurred during login. Please try again.')
