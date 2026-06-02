@@ -66,6 +66,19 @@ const updateLink = (invoiceId, paymentLink) => {
     })
 }
 
+const deleteInvoite = (invoiceId) => {
+    return new Promise((resolve, reject) => {
+        const query = 'DELETE FROM invoice WHERE id = ?';
+        conn.query(query, [invoiceId], (err, result) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(result);
+        });
+    })
+}
+
 const router = Router();
 router.get('/', async (req, res, next) => {
     try {
@@ -130,6 +143,16 @@ router.post('/update-link', async (req, res, next) => {
     try {
         const { invoice_id, payment_link } = req.body;
         const result = await updateLink(invoice_id, payment_link);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.get('/delete/:id', async (req, res, next) => {
+    try {
+        const invoiceId = req.params.id;
+        const result = await deleteInvoite(invoiceId);
         res.json(result);
     } catch (err) {
         next(err);
