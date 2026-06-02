@@ -52,6 +52,25 @@ export default function DetailsPage() {
             })
     }
 
+    const invalidateInvoice = () => {
+        if (status === 'paid') {
+            alert('Cannot invalidate a paid invoice.')
+            return
+        }
+        if (!window.confirm('Are you sure you want to invalidate invoice #' + invoiceId + '? This action cannot be undone.')) {
+            return
+        }
+        fetch(`/api/invoices/delete/${invoiceId}`)
+        .then(res => {
+            if (res.ok) {
+                alert('Invoice invalidated successfully.')
+                window.location.href = '/invoices'
+            } else {
+                alert('Failed to invalidate invoice. Please try again.')
+            }
+        })
+    }
+
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])

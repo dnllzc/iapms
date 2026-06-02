@@ -31,13 +31,15 @@
     padding: 0 16px;
 }
 
-.leftPanel {
+.newInvoicePanel .leftPanel {
     display: flex;
     flex-direction: column;
     gap: 12px;
     flex: 1 1 0;
     min-width: 0;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
     padding-right: 4px;
 }
 
@@ -46,6 +48,8 @@
     flex-direction: column;
     gap: 8px;
     min-height: 0;
+    width: 100%;
+    max-width: 100%;
 }
 
 .addedItemsTitle {
@@ -78,6 +82,7 @@
     color: white;
     font-size: 18px;
     font-weight: 700;
+    max-width: 100%;
 }
 
 .discountInfoRow {
@@ -92,6 +97,7 @@
     background: rgba(31, 21, 63, 0.96);
     color: white;
     font-size: 14px;
+    max-width: 100%;
 }
 
 .totalAmountLabel {
@@ -107,10 +113,19 @@
 }
 
 .discountInfoValue {
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
-.rightPanel {
+.newInvoiceForm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+}
+
+.newInvoicePanel .rightPanel {
     display: flex;
     gap: 12px;
     flex: 1 1 0;
@@ -157,8 +172,8 @@
         flex-wrap: wrap;
     }
 
-    .leftPanel,
-    .rightPanel {
+    .newInvoicePanel .leftPanel,
+    .newInvoicePanel .rightPanel {
         flex: 1 1 100%;
         max-width: none;
         min-width: 0;
@@ -304,8 +319,11 @@
     font-size: 28px;
     cursor: pointer;
     min-width: 88px;
+    width: auto;
+    height: auto;
 }
 
+.newInvoiceButton,
 .applyDiscountButton {
     padding: 8px 14px;
     border-radius: 8px;
@@ -316,6 +334,7 @@
     cursor: pointer;
     height: 44px;
     width: auto;
+    align-self: flex-start;
 }
 
 @media (max-width: 960px) {
@@ -323,8 +342,8 @@
         flex-wrap: wrap;
     }
 
-    .leftPanel,
-    .rightPanel {
+    .newInvoicePanel .leftPanel,
+    .newInvoicePanel .rightPanel {
         flex: 1 1 100%;
         max-width: none;
         min-width: 0;
