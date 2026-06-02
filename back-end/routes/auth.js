@@ -30,6 +30,8 @@ const findUserById = (id) => {
 
 const buildSessionUser = (user) => ({
     id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
     fullName: `${user.first_name} ${user.last_name}`.trim(),
     email: user.email,
     role: user.role,
