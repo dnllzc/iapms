@@ -1,17 +1,29 @@
+import { useMemo } from 'react'
 import './Hero.css'
 import './main.css'
 import NavBar from './NavBar'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
 
 export default function Hero() {
+    const { user, loading } = useAuth()
+
+    const userName = useMemo(() => {
+        if (!user) {
+            return 'Employee'
+        }
+
+        return user.firstName || 'Employee'
+    }, [user])
+
     return (
         <>
             <section className="navBar">
-                    < NavBar />
+                <NavBar />
             </section>
             <section className="center">
                 <div className="heroContent">
-                    <h1 className="welcomeTitle">Welcome, Employee User!</h1>
+                    <h1 className="welcomeTitle">Welcome, {loading ? 'Employee' : userName}</h1>
 
                     <div className="buttonContainer">
                         <Link to="/invoices"><button className="invoiceButton">Invoices</button></Link>

@@ -1,13 +1,25 @@
+import { useMemo } from 'react'
 import './AdminHero.css'
 import '../main.css'
 import NavBar from './NavBar'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 export default function AdminHero() {
+    const { user, loading } = useAuth()
+
+    const userName = useMemo(() => {
+        if (!user) {
+            return 'Admin'
+        }
+
+        return user.firstName || 'Admin'
+    }, [user])
+
     return (
         <>
             <section className="navBar">
-                < NavBar />
+                <NavBar />
             </section>
             <section className="center">
                 <div className="heroContent">
