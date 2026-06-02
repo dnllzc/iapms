@@ -27,7 +27,7 @@ export default function DetailsPage() {
                 setClientEmail(data.client_email)
                 setAmountDue(Number(data.total_amount) || 0)
                 setStatus(data.status)
-                setIssueDate(data.created_at)
+                setIssueDate(new Date(data.created_at).toLocaleString())
             })
     }
 
@@ -41,7 +41,7 @@ export default function DetailsPage() {
         }).then(res => res.json())
         .then(data => {
             setPayStatus(data.status)
-            setPaymentDate(data.payment_date)
+            setPaymentDate(new Date(data.payment_date).toLocaleString())
             setPaymentId(data.id)
         })
     }
@@ -86,7 +86,7 @@ export default function DetailsPage() {
                             </div>
                             <div className="detailsInfoRow">
                                 <span className="detailsInfoLabel">Paid On:</span>
-                                <span className="detailsInfoValue" id="createdAt">{}</span>
+                                <span className="detailsInfoValue" id="createdAt">{paymentDate}</span>
                             </div>
                             <div className="detailsInfoRow">
                                 <span className="detailsInfoLabel">Paid With:</span>

@@ -12,6 +12,7 @@ export default function DetailsPage() {
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
     const [amountDue, setAmountDue] = useState(0)
+    const [invoiceDate, setInvoiceDate] = useState('')
     const [status, setStatus] = useState('')
 
     const fetchInvoiceDetails = () => {
@@ -21,6 +22,7 @@ export default function DetailsPage() {
                 setClientName(data.client_name)
                 setClientEmail(data.client_email)
                 setAmountDue(Number(data.total_amount) || 0)
+                setInvoiceDate(new Date(data.created_at).toLocaleString())
                 setStatus(data.status)
             })
     }
@@ -90,7 +92,7 @@ export default function DetailsPage() {
                             </div>
                             <div className="detailsInfoRow">
                                 <span className="detailsInfoLabel">Created At:</span>
-                                <span className="detailsInfoValue" id="createdAt">{new Date().toLocaleString()}</span>
+                                <span className="detailsInfoValue" id="createdAt">{invoiceDate}</span>
                             </div>
                             <div className="detailsInfoRow">
                                 <span className="detailsInfoLabel">Payment Link:</span>
