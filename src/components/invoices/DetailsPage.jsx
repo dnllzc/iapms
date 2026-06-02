@@ -27,38 +27,28 @@ export default function DetailsPage() {
             })
     }
 
-    const checkPaidStatus = () => {
-        fetch(`/api/invoices/${invoiceId}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'pending') {
-                    alert('This invoice has not been paid yet. Redirecting...')
-                    window.location.href = `/pay/${invoiceId}`
-                } else {
-                    fetch('/api/payments/info', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ invoice_id: invoiceId })
-                    }).then(res => res.json())
-                    .then(paymentInfo => {
-                        if (paymentInfo.status === 'failed') {
-                            alert('The payment failed. \nPlease try again. Redirecting...')
-                            window.location.href = `/pay/${invoiceId}`
-                        }
-                     })
-                }
-            })
+    const invalidateInvoice = () => {
+        if (status === 'paid') {
+            alert('Cannot invalidate a paid invoice.')
+            return
+        }
+        if (!window.confirm('Are you sure you want to invalidate invoice #' + invoiceId + '? This action cannot be undone.')) {
+            return
+        }
+        fetch(`/api/invoices/delete/${invoiceId}`)
+        .then(res => {
+            if (res.ok) {
+                alert('Invoice invalidated successfully.')
+                window.location.href = '/invoices'
+            } else {
+                alert('Failed to invalidate invoice. Please try again.')
+            }
+        })
     }
 
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])
-
-    useEffect(() => {
-        checkPaidStatus()
-    })
 
     return (
         <>
@@ -105,7 +95,7 @@ export default function DetailsPage() {
                                     <button className="copyButton">Copy Payment Link</button>
                                 </CopyToClipboard>
                                 <button className="printButton">Print Receipt</button>
-                                <button className="cancelButton">Invalidate Invoice</button>
+                                <button className="cancelButton" onClick={invalidateInvoice}>Invalidate Invoice</button>
                             </div>
                         </div>
                         
