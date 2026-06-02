@@ -40,7 +40,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
-    padding-right: 4px;
+    padding-inline: 8px;
 }
 
 .addedItems {
@@ -78,7 +78,8 @@
     margin-top: 8px;
     padding: 8px 16px;
     border-radius: 999px;
-    background: rgba(31, 21, 63, 0.96);
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     color: white;
     font-size: 18px;
     font-weight: 700;
@@ -94,7 +95,8 @@
     margin-top: 4px;
     padding: 6px 12px;
     border-radius: 999px;
-    background: rgba(31, 21, 63, 0.96);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     color: white;
     font-size: 14px;
     max-width: 100%;

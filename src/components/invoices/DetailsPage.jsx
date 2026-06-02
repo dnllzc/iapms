@@ -95,7 +95,7 @@ export default function DetailsPage() {
                                     <button className="copyButton">Copy Payment Link</button>
                                 </CopyToClipboard>
                                 <button className="printButton">Print Receipt</button>
-                                <button className="cancelButton">Invalidate Invoice</button>
+                                <button className="cancelButton" onClick={invalidateInvoice}>Invalidate Invoice</button>
                             </div>
                         </div>
                         
