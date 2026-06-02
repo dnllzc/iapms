@@ -14,6 +14,7 @@ export default function DetailsPage() {
     const [amountDue, setAmountDue] = useState(0)
     const [invoiceDate, setInvoiceDate] = useState('')
     const [status, setStatus] = useState('')
+    const [discountCode, setDiscountCode] = useState('None')
 
     const fetchInvoiceDetails = () => {
         fetch(`/api/invoices/${invoiceId}`)
@@ -24,6 +25,23 @@ export default function DetailsPage() {
                 setAmountDue(Number(data.total_amount) || 0)
                 setInvoiceDate(new Date(data.created_at).toLocaleString())
                 setStatus(data.status)
+                fetchDiscountCode()
+            })
+    }
+
+    const fetchDiscountCode = () => {
+        fetch(`/api/discountcodes/${invoiceId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.code) {
+                    if (data.discount_type === 'percentage') {
+                        setDiscountCode(`${data.code} (${data.value}% off)`)
+                    } else if (data.discount_type === 'fixed') {
+                        setDiscountCode(`${data.code} (${data.value.toFixed(2)}€ off)`)
+                    } else {
+                        setDiscountCode(data.code)
+                    }
+                }
             })
     }
 
@@ -75,6 +93,10 @@ export default function DetailsPage() {
                             <div className="detailsInfoRow detailsInfoRowEmphasis">
                                 <span className="detailsInfoLabel">Amount Due:</span>
                                 <span className="detailsInfoValue" id="amountDue">{amountDue.toFixed(2)}€</span>
+                            </div>
+                            <div className="detailsInfoRow">
+                                <span className="detailsInfoLabel">Discount Code:</span>
+                                <span className="detailsInfoValue" id="discountCode">{discountCode}</span>
                             </div>
                             <div className="detailsInfoRow">
                                 <span className="detailsInfoLabel">Status:</span>

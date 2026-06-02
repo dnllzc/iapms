@@ -14,6 +14,7 @@ export default function DetailsPage() {
     const [clientEmail, setClientEmail] = useState('')
     const [amountDue, setAmountDue] = useState(0)
     const [status, setStatus] = useState('')
+    const [discountCode, setDiscountCode] = useState('None')
     const [issueDate, setIssueDate] = useState('')
     const [payStatus, setPayStatus] = useState('')
     const [paymentDate, setPaymentDate] = useState('')
@@ -28,6 +29,7 @@ export default function DetailsPage() {
                 setAmountDue(Number(data.total_amount) || 0)
                 setStatus(data.status)
                 setIssueDate(new Date(data.created_at).toLocaleString())
+                fetchDiscountCode()
             })
     }
 
@@ -44,6 +46,22 @@ export default function DetailsPage() {
             setPaymentDate(new Date(data.payment_date).toLocaleString())
             setPaymentId(data.id)
         })
+    }
+
+    const fetchDiscountCode = () => {
+        fetch(`/api/discountcodes/${invoiceId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.code) {
+                    if (data.discount_type === 'percentage') {
+                        setDiscountCode(`${data.code} (${data.value}% off)`)
+                    } else if (data.discount_type === 'fixed') {
+                        setDiscountCode(`${data.code} (${data.value.toFixed(2)}€ off)`)
+                    } else {
+                        setDiscountCode(data.code)
+                    }
+                }
+            })
     }
 
     useEffect(() => {
@@ -79,6 +97,10 @@ export default function DetailsPage() {
                             <div className="detailsInfoRow detailsInfoRowEmphasis">
                                 <span className="detailsInfoLabel">Total Amount:</span>
                                 <span className="detailsInfoValue" id="amountDue">{amountDue.toFixed(2)}€</span>
+                            </div>
+                            <div className="detailsInfoRow">
+                                <span className="detailsInfoLabel">Discount Code:</span>
+                                <span className="detailsInfoValue" id="discountCode">{discountCode}</span>
                             </div>
                             <div className="detailsInfoRow">
                                 <span className="detailsInfoLabel">Payment Status:</span>
