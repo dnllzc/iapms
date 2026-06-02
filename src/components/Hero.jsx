@@ -1,36 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useMemo } from 'react'
 import './Hero.css'
 import './main.css'
 import NavBar from './NavBar'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
 
 export default function Hero() {
-    const [userName, setUserName] = useState('');
+    const { user, loading } = useAuth()
 
-    const getUserName = () => {
-        fetch('/api/auth/me')
-            .then(response => response.json())
-            .then(data => {
-                setUserName(data.user.firstName);
-            })
-            .catch(error => {
-                console.error('Error fetching user name:', error);
-                setUserName('Employee');
-            });
-    }
+    const userName = useMemo(() => {
+        if (!user) {
+            return 'Employee'
+        }
 
-    useEffect(() => {
-        getUserName();
-    })
+        return user.firstName || 'Employee'
+    }, [user])
 
     return (
         <>
             <section className="navBar">
-                    < NavBar />
+                <NavBar />
             </section>
             <section className="center">
                 <div className="heroContent">
-                    <h1 className="welcomeTitle">Welcome, {userName}</h1>
+                    <h1 className="welcomeTitle">Welcome, {loading ? 'Employee' : userName}</h1>
 
                     <div className="buttonContainer">
                         <Link to="/invoices"><button className="invoiceButton">Invoices</button></Link>
