@@ -15,6 +15,7 @@ export default function DetailsPage() {
     const [amountDue, setAmountDue] = useState(0)
     const [status, setStatus] = useState('')
     const [discountCode, setDiscountCode] = useState('None')
+    const [discountCodeId, setDiscountCodeId] = useState(null)
     const [issueDate, setIssueDate] = useState('')
     const [payStatus, setPayStatus] = useState('')
     const [paymentDate, setPaymentDate] = useState('')
@@ -27,9 +28,9 @@ export default function DetailsPage() {
                 setClientName(data.client_name)
                 setClientEmail(data.client_email)
                 setAmountDue(Number(data.total_amount) || 0)
+                setDiscountCodeId(data.discount_code_id)
                 setStatus(data.status)
                 setIssueDate(new Date(data.created_at).toLocaleString())
-                fetchDiscountCode()
             })
     }
 
@@ -49,19 +50,24 @@ export default function DetailsPage() {
     }
 
     const fetchDiscountCode = () => {
-        fetch(`/api/discountcodes/${invoiceId}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.code) {
-                    if (data.discount_type === 'percentage') {
-                        setDiscountCode(`${data.code} (${data.value}% off)`)
-                    } else if (data.discount_type === 'fixed') {
-                        setDiscountCode(`${data.code} (${data.value.toFixed(2)}€ off)`)
-                    } else {
-                        setDiscountCode(data.code)
+        if (discountCodeId) {
+            fetch(`/api/discountcodes/${discountCodeId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code) {
+                        if (data.discount_type === 'percentage') {
+                            setDiscountCode(`${data.code} (${data.value}% off)`)
+                        } else if (data.discount_type === 'fixed') {
+                            setDiscountCode(`${data.code} (${data.value.toFixed(2)}€ off)`)
+                        } else {
+                            setDiscountCode(data.code)
+                        }
                     }
                 }
-            })
+            )
+        } else {
+            setDiscountCode('None')
+        }
     }
 
     useEffect(() => {
@@ -71,6 +77,10 @@ export default function DetailsPage() {
     useEffect(() => {
         fetchPaymentDetails()
     }, [])
+
+    useEffect(() => {
+        fetchDiscountCode()
+    })
 
     return (
         <>
