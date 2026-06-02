@@ -77,7 +77,7 @@ export default function NewInvoice() {
             }).then(() => {
                 alert('Invoice created successfully!')
                 // here we update the payment link with the correct invoice ID
-                fetch('/api/invoice/update-link', {
+                fetch('/api/invoices/update-link', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
