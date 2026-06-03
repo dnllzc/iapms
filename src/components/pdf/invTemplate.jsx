@@ -56,9 +56,23 @@ export default function InvTemplate() {
         },
         body: JSON.stringify({ invoice_id: invoiceId })
       })
-      const data = await response.json();
-      setItems(Array.isArray(data) ? data : [])
-      console.log('Items data:', data);
+      const itemsData = await response.json();
+
+      const dataWithDesc = await Promise.all(itemsData.map(async (item) => {
+        try {
+          const descResponse = await fetch('/api/items/' + item.item_id);
+          const itemData = await descResponse.json();
+
+          return {
+            ...item,
+            description: itemData.description || ''
+          };
+        } catch (error) {
+          console.error('Error fetching item description for item ID ' + item.item_id + ':', error);
+        }
+      }));
+      setItems(dataWithDesc);
+      console.log('Items data:', itemsData);
     } catch (error) {
       console.error('Error fetching items data:', error);
     }
