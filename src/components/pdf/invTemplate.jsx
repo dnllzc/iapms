@@ -154,14 +154,6 @@ export default function InvTemplate() {
                         <td className="right-align">{item.price.toFixed(2) + '€'}</td>
                       </tr>
                     ))}
-                    {/* <tr>
-                      <td>
-                        Item A
-                        <span className="description-subtext">Description for Item A</span>
-                      </td>
-                      <td className="center-align">1</td>
-                      <td className="right-align">550.00€</td>
-                    </tr> */}
                     <tr className="amount-row">
                       <td>Amount due</td>
                       <td></td>

@@ -74,11 +74,11 @@ export default function DetailsPage() {
     const handlePrint = () => {
         const printWindow = window.open(`/print/invoice/${invoiceId}`, '_blank')
         printWindow.document.close()
-        printWindow.onload = () => {
+        setTimeout(() => {
             printWindow.focus()
             printWindow.print()
             printWindow.close()
-        }
+        }, 500)
     }
 
     useEffect(() => {

@@ -35,23 +35,21 @@ import { RequireAdmin, RequireAuth } from './components/RouteGuards.jsx'
 export default function AppRouter() {
     const { user, loading } = useAuth()
 
-    if (loading) {
-        return <section className="center"><h1 className="authTitle">Loading session...</h1></section>
-    }
-
     return (
         <BrowserRouter>
             <Routes>
-                {/* User Routes */}
-                <Route
-                    path="/"
-                    element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/home'} replace /> : <Auth />}
-                />
+                {/* Public Routes */}
                 <Route path="/pay/:id" element={<PaymentLink />} />
                 <Route path="/payment-done/:id" element={<PaymentDone />} />
                 <Route path="/print/:type/:id" element={<InvTemplate />} />
 
-                <Route element={<RequireAuth />}>
+                {/* User Routes */}
+                <Route 
+                    element={
+                        loading
+                            ? <section className="center"><h1 className="authTitle">Loading session...</h1></section>
+                            : <RequireAuth />
+                    }>
                     <Route path="/home" element={<Hero />} />
 
                     <Route path="/invoices" element={<Invoices />} />
