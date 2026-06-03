@@ -49,6 +49,7 @@ export default function AppRouter() {
                 />
                 <Route path="/pay/:id" element={<PaymentLink />} />
                 <Route path="/payment-done/:id" element={<PaymentDone />} />
+                <Route path="/print/:type/:id" element={<InvTemplate />} />
 
                 <Route element={<RequireAuth />}>
                     <Route path="/home" element={<Hero />} />
@@ -77,7 +78,6 @@ export default function AppRouter() {
                     <Route path="/admin/items/new" element={<NewItem />} />
                     <Route path="/admin/items/edit/:id" element={<NewItem />} />
                 </Route>
-                <Route path="/testing" element={<InvTemplate invoiceId={1} clientName="Example Client" clientEmail="client@example.com" amountDue="550.00€" issueDate="03/06/2026, 12:00:00" />} />
             </Routes>
         </BrowserRouter>
     )

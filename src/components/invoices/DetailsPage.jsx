@@ -72,28 +72,13 @@ export default function DetailsPage() {
     }
 
     const handlePrint = () => {
-        const template = InvTemplate({
-            invoiceId,
-            clientName,
-            clientEmail,
-            amountDue: amountDue.toFixed(2) + '€',
-            invoiceDate
-        })
-        const printWindow = window.open('', '_blank')
-        printWindow.document.write(template)
+        const printWindow = window.open(`/print/invoice/${invoiceId}`, '_blank')
         printWindow.document.close()
         printWindow.onload = () => {
             printWindow.focus()
             printWindow.print()
             printWindow.close()
         }
-        console.log('Print template inserted with invoice details:', {
-            invoiceId,
-            clientName,
-            clientEmail,
-            amountDue: amountDue.toFixed(2) + '€',
-            invoiceDate
-        })
     }
 
     useEffect(() => {
