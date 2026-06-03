@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import './invTemplate.css';
 
 export default function InvTemplate() {
@@ -8,11 +9,36 @@ export default function InvTemplate() {
   const pathname = window.location.pathname;
   const type = pathname.split('/')[2];
   const id = pathname.split('/')[3];
+  
+  const invoice = type === 'invoice';
+  const [invoiceId, setInvoiceId] = useState(id);
+  const [amountDue, setAmountDue] = useState('');
+  const [issueDate, setIssueDate] = useState('');
+  const [clientName, setClientName] = useState('');
+  const [clientEmail, setClientEmail] = useState('');
 
-  if (type === 'invoice') {
-    const invoice = true;
-  } else {
-    const invoice = false;
+  const getInvoiceData = async () => {
+    try {
+      fetch('/api/invoices/' + id)
+        .then(response => response.json())
+        .then(data => {
+          setAmountDue(data.total_amount);
+          setIssueDate(new Date(data.created_at).toLocaleString());
+          setClientName(data.client_name);
+          setClientEmail(data.client_email);
+        })
+        .catch(error => {
+          console.error('Error fetching invoice data:', error);
+        });
+    } catch (error) {
+      console.error('Error fetching invoice data:', error);
+    }
+  }
+
+  if (invoice) {
+    useEffect(() => {
+      getInvoiceData();
+    }, []);
   }
 
   return (
@@ -42,7 +68,7 @@ export default function InvTemplate() {
                 <thead>
                   <tr>
                     <th>{invoice ? 'Amount Due' : 'Amount Paid'}</th>
-                    <th>Issue Date</th>
+                    <th>{invoice ? 'Issue Date' : 'Payment Date'}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,7 +102,7 @@ export default function InvTemplate() {
                     <tr className="amount-row">
                       <td>Amount due</td>
                       <td></td>
-                      <td className="right-align">550.00€</td>
+                      <td className="right-align">{amountDue}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -84,7 +110,7 @@ export default function InvTemplate() {
 
               <div className="inv-footer">
                 <div className="processed-by">
-                  Invoice issued by {companyName}<br />
+                  {invoice ? 'Invoice Issued ' : 'Receipt issued ' }by {companyName}<br />
                   {companyName}
                 </div>
                 <div className="billed-to">
@@ -94,7 +120,7 @@ export default function InvTemplate() {
                 </div>
               </div>
 
-              <div className="inv-watermark">INVOICE</div>
+              <div className="inv-watermark">{invoice ? 'INVOICE' : 'RECEIPT'}</div>
 
             </div>
         </section>
