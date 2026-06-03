@@ -7,6 +7,7 @@ import Auth from './components/Auth.jsx'
 import Invoices from './components/invoices/Invoices.jsx'
 import NewInvoice from './components/invoices/NewInvoice.jsx'
 import DetailsPageInv from './components/invoices/DetailsPage.jsx'
+import InvTemplate from './components/pdf/invTemplate.jsx'
 
 // Payments
 import Payments from './components/payments/Payments.jsx'
@@ -76,6 +77,7 @@ export default function AppRouter() {
                     <Route path="/admin/items/new" element={<NewItem />} />
                     <Route path="/admin/items/edit/:id" element={<NewItem />} />
                 </Route>
+                <Route path="/testing" element={<InvTemplate />} />
             </Routes>
         </BrowserRouter>
     )
