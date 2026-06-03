@@ -3,6 +3,7 @@ import '../main.css'
 import NavBar from '../NavBar'
 import PaymentLinkItemTable from './PaymentLinkItemTable'
 import { useState, useEffect } from 'react'
+import { handlePrint } from '../pdf/invTemplate.jsx'
 
 export default function PaymentDone() {
     const pathname = window.location.pathname
@@ -11,6 +12,7 @@ export default function PaymentDone() {
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
     const [amountDue, setAmountDue] = useState(0)
+    const [paymentId, setPaymentId] = useState('')
 
     const fetchInvoiceDetails = () => {
         fetch(`/api/invoices/${invoiceId}`)
@@ -47,6 +49,14 @@ export default function PaymentDone() {
             })
     }
 
+    const fetchPaymentId = () => {
+        fetch('/api/payments/inv/' + invoiceId)
+            .then(res => res.json())
+            .then(data => {
+                setPaymentId(data.id)
+            })
+    }
+
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])
@@ -54,6 +64,10 @@ export default function PaymentDone() {
     useEffect(() => {
         checkPaidStatus()
     })
+
+    useEffect(() => {
+        fetchPaymentId()
+    }, [invoiceId])
 
     return (
         <>
@@ -84,7 +98,7 @@ export default function PaymentDone() {
                                 <div className="paymentProcessRow">
                                     <p className="paymentProcessText">Thank you for your payment! Your transaction has been successfully processed.</p>
                                 </div>
-                                <button className="printButton">Print Receipt</button>
+                                <button className="printButton" onClick={() => handlePrint('receipt', paymentId)}>Print Receipt</button>
                             </div>
                         </div>
                         

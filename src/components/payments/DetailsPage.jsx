@@ -5,10 +5,11 @@ import PaymentLinkItemTable from '../payments/PaymentLinkItemTable'
 import { useState, useEffect } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Link } from 'react-router-dom'
+import { handlePrint } from '../pdf/invTemplate.jsx'
 
 export default function DetailsPage() {
     const pathname = window.location.pathname
-    const invoiceId = pathname.split('/')[3]
+    const paymentId = pathname.split('/')[3]
 
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
@@ -19,7 +20,17 @@ export default function DetailsPage() {
     const [issueDate, setIssueDate] = useState('')
     const [payStatus, setPayStatus] = useState('')
     const [paymentDate, setPaymentDate] = useState('')
-    const [paymentId, setPaymentId] = useState('')
+    const [invoiceId, setInvoiceId] = useState('')
+
+    const fetchPaymentDetails = () => {
+        fetch(`/api/payments/details/${paymentId}`)
+        .then(res => res.json())
+        .then(data => {
+            setPayStatus(data.status)
+            setPaymentDate(new Date(data.payment_date).toLocaleString())
+            setInvoiceId(data.invoice_id)
+        })
+    }
 
     const fetchInvoiceDetails = () => {
         fetch(`/api/invoices/${invoiceId}`)
@@ -32,21 +43,6 @@ export default function DetailsPage() {
                 setStatus(data.status)
                 setIssueDate(new Date(data.created_at).toLocaleString())
             })
-    }
-
-    const fetchPaymentDetails = () => {
-        fetch('/api/payments/details', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ invoice_id: invoiceId })
-        }).then(res => res.json())
-        .then(data => {
-            setPayStatus(data.status)
-            setPaymentDate(new Date(data.payment_date).toLocaleString())
-            setPaymentId(data.id)
-        })
     }
 
     const fetchDiscountCode = () => {
@@ -71,12 +67,12 @@ export default function DetailsPage() {
     }
 
     useEffect(() => {
-        fetchInvoiceDetails()
+        fetchPaymentDetails()
     }, [])
 
     useEffect(() => {
-        fetchPaymentDetails()
-    }, [])
+        fetchInvoiceDetails()
+    }, [invoiceId])
 
     useEffect(() => {
         fetchDiscountCode()
@@ -127,7 +123,7 @@ export default function DetailsPage() {
                         </div>
                         <div className="detailsBottomInfo">
                             <div className="detailsButtons">
-                                <button className="printButton">Print Receipt</button>
+                                <button className="printButton" onClick={() => handlePrint('payment', paymentId)}>Print Receipt</button>
                                 <Link to='/payments'><button className="backButton">Go Back</button></Link>
                             </div>
                         </div>

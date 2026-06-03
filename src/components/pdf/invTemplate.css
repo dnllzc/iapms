@@ -1,0 +1,92 @@
+.inv-template {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #000;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    font-size: 14px;
+}
+.inv-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+.company-info div, .invoice-info div {
+    margin-bottom: 2px;
+}
+.invoice-info {
+    text-align: right;
+}
+.invoice-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+.invoice-number {
+    color: #555;
+}
+.amount-date-table, .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+.amount-date-table th, td,
+.summary-table th, td {
+    padding: 10px 0;
+    text-align: left;
+}
+.amount-date-table th,
+.summary-table th {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #555;
+    border-bottom: 2px solid #000;
+}
+.amount-date-table td,
+.summary-table td {
+    border-bottom: 1px solid #ddd;
+}
+.description-subtext {
+    font-size: 12px;
+    color: #555;
+    display: block;
+    margin-top: 4px;
+}
+.summary-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+.amount-paid-row td {
+    font-weight: bold;
+    border-bottom: none;
+    border-top: 2px solid #000;
+}
+.right-align {
+    text-align: right;
+}
+.center-align {
+    text-align: center;
+}
+.inv-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    page-break-inside: avoid;
+}
+.processed-by, .billed-to {
+    width: 48%;
+}
+.billed-to-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.inv-watermark {
+    margin-top: 40px;
+    font-size: 12px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

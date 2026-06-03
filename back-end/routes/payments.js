@@ -13,6 +13,19 @@ const getPayments = () => {
     });
 }
 
+const getPayment = (payment_id) => {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT * FROM payment WHERE id = ?"
+        conn.query(query, [payment_id], (err, rows, fields) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows[0]);
+        });
+    })
+}
+
 const getPaymentDetails = (invoice_id) => {
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM payment WHERE invoice_id = ?"
@@ -26,7 +39,7 @@ const getPaymentDetails = (invoice_id) => {
     })
 }
 
-const getPaymentInfo = (invoice_id) => {
+const getInvItems = (invoice_id) => {
     return new Promise((resolve, reject) => {
         const query = `
             SELECT i.id AS item_id, i.name, i.price, pi.quantity
@@ -54,16 +67,34 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.post('/details', async (req, res, next) => {
+router.get('/details/:id', async (req, res, next) => {
     try {
-        const invoiceId = Number(req.body?.invoice_id)
-        if (!Number.isInteger(invoiceId) || invoiceId <= 0) {
-            res.status(400).json({ error: 'invoice_id must be a positive integer' })
+        const paymentId = req.params?.id
+        if (!paymentId) {
+            res.status(400).json({ error: 'Payment ID is required' })
+            return
+        }
+        const payment = await getPayment(paymentId)
+        if (!payment) {
+            res.status(404).json({ error: 'Payment not found' })
+            return
+        }
+        res.json(payment)
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.get('/inv/:id', async (req, res, next) => {
+    try {
+        const invoiceId = req.params?.id
+        if (!invoiceId) {
+            res.status(400).json({ error: 'Invoice ID is required' })
             return
         }
         const payment = await getPaymentDetails(invoiceId)
         if (!payment) {
-            res.status(404).json({ error: 'Payment not found for the given invoice_id' })
+            res.status(404).json({ error: 'Payment not found for this invoice' })
             return
         }
         res.json(payment)
@@ -80,7 +111,7 @@ router.post('/info', async (req, res, next) => {
             return
         }
 
-        const items = await getPaymentInfo(invoiceId)
+        const items = await getInvItems(invoiceId)
         res.json(items)
     } catch (err) {
         next(err);

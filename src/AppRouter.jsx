@@ -7,6 +7,7 @@ import Auth from './components/Auth.jsx'
 import Invoices from './components/invoices/Invoices.jsx'
 import NewInvoice from './components/invoices/NewInvoice.jsx'
 import DetailsPageInv from './components/invoices/DetailsPage.jsx'
+import InvTemplate from './components/pdf/invTemplate.jsx'
 
 // Payments
 import Payments from './components/payments/Payments.jsx'
@@ -31,25 +32,35 @@ import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
 import { useAuth } from './context/AuthContext.jsx'
 import { RequireAdmin, RequireAuth } from './components/RouteGuards.jsx'
 
-export default function AppRouter() {
+function RootRedirect() {
     const { user, loading } = useAuth()
-
     if (loading) {
         return <section className="center"><h1 className="authTitle">Loading session...</h1></section>
     }
+    if (!user) return <Auth />
+    return <Navigate to={user.role === 'admin' ? '/admin' : '/home'} replace />
+}
+
+export default function AppRouter() {
+    const { user, loading } = useAuth()
 
     return (
         <BrowserRouter>
             <Routes>
-                {/* User Routes */}
-                <Route
-                    path="/"
-                    element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/home'} replace /> : <Auth />}
-                />
+                {/* Public Routes */}
+                <Route path="/" element={<RootRedirect />} />
                 <Route path="/pay/:id" element={<PaymentLink />} />
                 <Route path="/payment-done/:id" element={<PaymentDone />} />
+                <Route path="/print/:type/:id" element={<InvTemplate />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
 
-                <Route element={<RequireAuth />}>
+                {/* User Routes */}
+                <Route
+                    element={
+                        loading
+                            ? <section className="center"><h1 className="authTitle">Loading session...</h1></section>
+                            : <RequireAuth />
+                    }>
                     <Route path="/home" element={<Hero />} />
 
                     <Route path="/invoices" element={<Invoices />} />
