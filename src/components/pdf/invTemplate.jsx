@@ -57,7 +57,10 @@ export default function InvTemplate() {
         body: JSON.stringify({ invoice_id: invoiceId })
       })
       const data = await response.json();
-      setItems(data.items);
+      setItems(Array.isArray(data) ? data : [])
+      console.log('Items data:', data);
+    } catch (error) {
+      console.error('Error fetching items data:', error);
     }
   }
 
@@ -70,6 +73,12 @@ export default function InvTemplate() {
       getPaymentData(id);
     }, []);
   }
+
+  useEffect(() => {
+    if (invoiceId) {
+      getItems();
+    }
+  }, [invoiceId]);
 
   return (
     <>
@@ -121,14 +130,24 @@ export default function InvTemplate() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    {items.map((item, index) => (
+                      <tr key={index}>
+                        <td>
+                          {item.name}
+                          <span className="description-subtext">{item.description}</span>
+                        </td>
+                        <td className="center-align">{item.quantity}</td>
+                        <td className="right-align">{item.price.toFixed(2) + '€'}</td>
+                      </tr>
+                    ))}
+                    {/* <tr>
                       <td>
                         Item A
                         <span className="description-subtext">Description for Item A</span>
                       </td>
                       <td className="center-align">1</td>
                       <td className="right-align">550.00€</td>
-                    </tr>
+                    </tr> */}
                     <tr className="amount-row">
                       <td>Amount due</td>
                       <td></td>
