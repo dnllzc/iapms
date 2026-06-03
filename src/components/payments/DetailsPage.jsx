@@ -21,6 +21,16 @@ export default function DetailsPage() {
     const [paymentDate, setPaymentDate] = useState('')
     const [invoiceId, setInvoiceId] = useState('')
 
+    const fetchPaymentDetails = () => {
+        fetch(`/api/payments/details/${paymentId}`)
+        .then(res => res.json())
+        .then(data => {
+            setPayStatus(data.status)
+            setPaymentDate(new Date(data.payment_date).toLocaleString())
+            setInvoiceId(data.invoice_id)
+        })
+    }
+
     const fetchInvoiceDetails = () => {
         fetch(`/api/invoices/${invoiceId}`)
             .then(res => res.json())
@@ -32,21 +42,6 @@ export default function DetailsPage() {
                 setStatus(data.status)
                 setIssueDate(new Date(data.created_at).toLocaleString())
             })
-    }
-
-    const fetchPaymentDetails = () => {
-        fetch('/api/payments/details', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ payment_id: paymentId })
-        }).then(res => res.json())
-        .then(data => {
-            setPayStatus(data.status)
-            setPaymentDate(new Date(data.payment_date).toLocaleString())
-            setInvoiceId(data.invoice_id)
-        })
     }
 
     const fetchDiscountCode = () => {
@@ -76,7 +71,7 @@ export default function DetailsPage() {
 
     useEffect(() => {
         fetchInvoiceDetails()
-    }, [])
+    }, [invoiceId])
 
     useEffect(() => {
         fetchDiscountCode()

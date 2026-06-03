@@ -13,6 +13,19 @@ const getPayments = () => {
     });
 }
 
+const getPayment = (payment_id) => {
+    return new Promise((resolve, reject) => {
+        const query = "SELECT * FROM payment WHERE id = ?"
+        conn.query(query, [payment_id], (err, rows, fields) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(rows[0]);
+        });
+    })
+}
+
 const getPaymentDetails = (invoice_id) => {
     return new Promise((resolve, reject) => {
         const query = "SELECT * FROM payment WHERE invoice_id = ?"
@@ -54,16 +67,16 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.post('/details', async (req, res, next) => {
+router.get('/details/:id', async (req, res, next) => {
     try {
-        const paymentId = Number(req.body?.paymentId)
-        if (!Number.isInteger(paymentId) || paymentId <= 0) {
-            res.status(400).json({ error: 'payment_id must be a positive integer' })
+        const paymentId = req.params?.id
+        if (!paymentId) {
+            res.status(400).json({ error: 'Payment ID is required' })
             return
         }
-        const payment = await getPaymentDetails(paymentId)
+        const payment = await getPayment(paymentId)
         if (!payment) {
-            res.status(404).json({ error: 'Payment not found for the given payment_id' })
+            res.status(404).json({ error: 'Payment not found' })
             return
         }
         res.json(payment)
