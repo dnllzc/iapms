@@ -30,8 +30,10 @@ export default function InvTemplate({ invoiceId, clientName, clientEmail, amount
                   </tr>
                 </thead>
                 <tbody>
-                  <td>{amountDue}</td>
-                  <td>{issueDate}</td>
+                  <tr>
+                    <td>{amountDue}</td>
+                    <td>{issueDate}</td>
+                  </tr>
                 </tbody>
               </table>
 

@@ -4,6 +4,7 @@ import NavBar from '../NavBar'
 import PaymentLinkItemTable from '../payments/PaymentLinkItemTable'
 import { useState, useEffect } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import InvTemplate from '../pdf/invTemplate.jsx'
 
 export default function DetailsPage() {
     const pathname = window.location.pathname
@@ -70,6 +71,22 @@ export default function DetailsPage() {
         })
     }
 
+    const handlePrint = () => {
+        const template = InvTemplate({
+            invoiceId,
+            clientName,
+            clientEmail,
+            amountDue,
+            invoiceDate
+        })
+        const printWindow = window.open('', '_blank')
+        printWindow.document.write(template)
+        printWindow.document.close()
+        printWindow.focus()
+        printWindow.print()
+        printWindow.close()
+    }
+
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])
@@ -126,7 +143,7 @@ export default function DetailsPage() {
                                 <CopyToClipboard text={`http://88.200.63.148:30092/pay/` + invoiceId}>
                                     <button className="copyButton">Copy Payment Link</button>
                                 </CopyToClipboard>
-                                <button className="printButton">Print Receipt</button>
+                                <button className="printButton" onClick={handlePrint}>Print Receipt</button>
                                 <button className="cancelButton" onClick={invalidateInvoice}>Invalidate Invoice</button>
                             </div>
                         </div>
