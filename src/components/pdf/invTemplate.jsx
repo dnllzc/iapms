@@ -1,6 +1,21 @@
 import { useState, useEffect } from 'react';
 import './invTemplate.css';
 
+export function handlePrint(type, id) {
+  const url = 
+    type === 'invoice' 
+    ? '/print/invoice/' + id 
+    : '/print/receipt/' + id
+  const printWindow = window.open(url, '_blank');
+  if (!printWindow) return
+  printWindow.document.close()
+  setTimeout(() => {
+      printWindow.focus()
+      printWindow.print()
+      printWindow.close()
+  }, 500)
+}
+
 export default function InvTemplate() {
   const companyName = 'Company Name';
   const companyEmail = 'contact@company.com';

@@ -5,6 +5,7 @@ import PaymentLinkItemTable from '../payments/PaymentLinkItemTable'
 import { useState, useEffect } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Link } from 'react-router-dom'
+import { handlePrint } from '../pdf/invTemplate.jsx'
 
 export default function DetailsPage() {
     const pathname = window.location.pathname
@@ -122,7 +123,7 @@ export default function DetailsPage() {
                         </div>
                         <div className="detailsBottomInfo">
                             <div className="detailsButtons">
-                                <button className="printButton">Print Receipt</button>
+                                <button className="printButton" onClick={() => handlePrint('payment', paymentId)}>Print Receipt</button>
                                 <Link to='/payments'><button className="backButton">Go Back</button></Link>
                             </div>
                         </div>
