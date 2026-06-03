@@ -11,33 +11,63 @@ export default function InvTemplate() {
   const id = pathname.split('/')[3];
   
   const invoice = type === 'invoice';
-  const [invoiceId, setInvoiceId] = useState(id);
+  const [invoiceId, setInvoiceId] = useState('');
+  const [receiptId, setReceiptId] = useState('');
   const [amountDue, setAmountDue] = useState('');
   const [issueDate, setIssueDate] = useState('');
   const [clientName, setClientName] = useState('');
   const [clientEmail, setClientEmail] = useState('');
+  const [items, setItems] = useState([]);
 
-  const getInvoiceData = async () => {
+  const getInvoiceData = async (invId) => {
     try {
-      fetch('/api/invoices/' + id)
-        .then(response => response.json())
-        .then(data => {
-          setAmountDue(data.total_amount);
-          setIssueDate(new Date(data.created_at).toLocaleString());
-          setClientName(data.client_name);
-          setClientEmail(data.client_email);
-        })
-        .catch(error => {
-          console.error('Error fetching invoice data:', error);
-        });
+      const response = await fetch('/api/invoices/' + invId)
+      const data = await response.json();
+      setInvoiceId(data.id);
+      setAmountDue(data.total_amount.toFixed(2) + '€');
+      setIssueDate(new Date(data.created_at).toLocaleString());
+      setClientName(data.client_name);
+      setClientEmail(data.client_email);
     } catch (error) {
       console.error('Error fetching invoice data:', error);
     }
   }
 
+  const getPaymentData = async (payId) => {
+    try {
+      const response = await fetch('/api/payments/details/' + payId)
+      const data = await response.json();
+      setReceiptId(data.id);
+      setAmountDue(data.amount.toFixed(2) + '€');
+      setIssueDate(new Date(data.payment_date).toLocaleString());
+      setInvoiceId(data.invoice_id);
+      getInvoiceData(data.invoice_id);
+    } catch (error) {
+      console.error('Error fetching payment data:', error);
+    }
+  }
+
+  const getItems = async () => {
+    try {
+      const response = await fetch('/api/payments/info/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ invoice_id: invoiceId })
+      })
+      const data = await response.json();
+      setItems(data.items);
+    }
+  }
+
   if (invoice) {
     useEffect(() => {
-      getInvoiceData();
+      getInvoiceData(id);
+    }, []);
+  } else {
+    useEffect(() => {
+      getPaymentData(id);
     }, []);
   }
 
@@ -58,7 +88,7 @@ export default function InvTemplate() {
                 ) : (
                   <div className="invoice-info">
                     <div className="invoice-title">Receipt from {companyName}</div>
-                    <div className="invoice-number">Receipt: RCP-{invoiceId}</div>
+                    <div className="invoice-number">Receipt: RCP-{receiptId}</div>
                   </div>
                 )}
             </div>
