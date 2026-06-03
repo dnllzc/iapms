@@ -1,28 +1,32 @@
 import { useParams } from 'react-router-dom';
-import './invTemplate.css';
 
 export default function InvTemplate({ invoiceId, clientName, clientEmail, amountDue, issueDate }) {
   const companyName = 'Company Name';
   const companyEmail = 'contact@company.com';
   const companyWebsite = 'http://www.company.com';
 
-  return (
-    <>
-        <section className="inv-template">
-            <div className="inv-header">
-              <div className="company-info">
-                <strong>{companyName}</strong><br />
-                {companyEmail}<br />
-                {companyWebsite}
+  return `
+    <html>
+      <head>
+        <title>Invoice INV-${invoiceId}</title>
+        <link rel="stylesheet" href="http://88.200.63.148:30092/invTemplate.css" />
+      </head>
+      <body>
+        <section class="inv-template">
+            <div class="inv-header">
+              <div class="company-info">
+                <strong>${companyName}</strong><br />
+                ${companyEmail}<br />
+                ${companyWebsite}
               </div>
-              <div className="invoice-info">
-                <div className="invoice-title">Invoice from {companyName}</div>
-                <div className="invoice-number">Invoice: INV-{invoiceId}</div>
+              <div class="invoice-info">
+                <div class="invoice-title">Invoice from ${companyName}</div>
+                <div class="invoice-number">Invoice: INV-${invoiceId}</div>
               </div>
             </div>
 
-            <div className="amount-date">
-              <table className="amount-date-table">
+            <div class="amount-date">
+              <table class="amount-date-table">
                 <thead>
                   <tr>
                     <th>Amount Due</th>
@@ -31,16 +35,16 @@ export default function InvTemplate({ invoiceId, clientName, clientEmail, amount
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{amountDue}</td>
-                    <td>{issueDate}</td>
+                    <td>${amountDue}</td>
+                    <td>${issueDate}</td>
                   </tr>
                 </tbody>
               </table>
 
-              <div className="summary-title">SUMMARY</div>
+              <div class="summary-title">SUMMARY</div>
 
-              <div className="summary-content">
-                <table className="summary-table">
+              <div class="summary-content">
+                <table class="summary-table">
                   <thead>
                     <tr>
                       <th>Description</th>
@@ -52,36 +56,37 @@ export default function InvTemplate({ invoiceId, clientName, clientEmail, amount
                     <tr>
                       <td>
                         Item A
-                        <span className="description-subtext">Description for Item A</span>
+                        <span class="description-subtext">Description for Item A</span>
                       </td>
-                      <td className="center-align">1</td>
-                      <td className="right-align">550.00€</td>
+                      <td class="center-align">1</td>
+                      <td class="right-align">550.00€</td>
                     </tr>
-                    <tr className="amount-row">
+                    <tr class="amount-row">
                       <td>Amount due</td>
                       <td></td>
-                      <td className="right-align">550.00€</td>
+                      <td class="right-align">${amountDue}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
-              <div className="inv-footer">
-                <div className="processed-by">
-                  Invoice issued by {companyName}<br />
-                  {companyName}
+              <div class="inv-footer">
+                <div class="processed-by">
+                  Invoice issued by ${companyName}<br />
+                  ${companyName}
                 </div>
-                <div className="billed-to">
-                  <div className="billed-to-title">Billed to:</div>
-                  {clientName}<br />
-                  {clientEmail}
+                <div class="billed-to">
+                  <div class="billed-to-title">Billed to:</div>
+                  ${clientName}<br />
+                  ${clientEmail}
                 </div>
               </div>
 
-              <div className="inv-watermark">INVOICE</div>
+              <div class="inv-watermark">INVOICE</div>
 
             </div>
         </section>
-    </>
-  );
+      </body>
+    </html>
+  `;
 }

@@ -82,9 +82,11 @@ export default function DetailsPage() {
         const printWindow = window.open('', '_blank')
         printWindow.document.write(template)
         printWindow.document.close()
-        printWindow.focus()
-        printWindow.print()
-        printWindow.close()
+        printWindow.onload = () => {
+            printWindow.focus()
+            printWindow.print()
+            printWindow.close()
+        }
     }
 
     useEffect(() => {
