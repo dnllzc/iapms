@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-export default function InvTemplate({ invoiceId, clientName, clientEmail, amountDue, issueDate }) {
+export default function InvTemplate({ invoiceId, clientName, clientEmail, amountDue, invoiceDate }) {
   const companyName = 'Company Name';
   const companyEmail = 'contact@company.com';
   const companyWebsite = 'http://www.company.com';
@@ -36,7 +36,7 @@ export default function InvTemplate({ invoiceId, clientName, clientEmail, amount
                 <tbody>
                   <tr>
                     <td>${amountDue}</td>
-                    <td>${issueDate}</td>
+                    <td>${invoiceDate}</td>
                   </tr>
                 </tbody>
               </table>

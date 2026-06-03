@@ -76,7 +76,7 @@ export default function DetailsPage() {
             invoiceId,
             clientName,
             clientEmail,
-            amountDue,
+            amountDue: amountDue.toFixed(2) + '€',
             invoiceDate
         })
         const printWindow = window.open('', '_blank')
@@ -87,6 +87,13 @@ export default function DetailsPage() {
             printWindow.print()
             printWindow.close()
         }
+        console.log('Print template inserted with invoice details:', {
+            invoiceId,
+            clientName,
+            clientEmail,
+            amountDue: amountDue.toFixed(2) + '€',
+            invoiceDate
+        })
     }
 
     useEffect(() => {
