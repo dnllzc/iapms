@@ -56,14 +56,14 @@ router.get('/', async (req, res, next) => {
 
 router.post('/details', async (req, res, next) => {
     try {
-        const invoiceId = Number(req.body?.invoice_id)
-        if (!Number.isInteger(invoiceId) || invoiceId <= 0) {
-            res.status(400).json({ error: 'invoice_id must be a positive integer' })
+        const paymentId = Number(req.body?.paymentId)
+        if (!Number.isInteger(paymentId) || paymentId <= 0) {
+            res.status(400).json({ error: 'payment_id must be a positive integer' })
             return
         }
-        const payment = await getPaymentDetails(invoiceId)
+        const payment = await getPaymentDetails(paymentId)
         if (!payment) {
-            res.status(404).json({ error: 'Payment not found for the given invoice_id' })
+            res.status(404).json({ error: 'Payment not found for the given payment_id' })
             return
         }
         res.json(payment)

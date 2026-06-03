@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 export default function DetailsPage() {
     const pathname = window.location.pathname
-    const invoiceId = pathname.split('/')[3]
+    const paymentId = pathname.split('/')[3]
 
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
@@ -19,7 +19,7 @@ export default function DetailsPage() {
     const [issueDate, setIssueDate] = useState('')
     const [payStatus, setPayStatus] = useState('')
     const [paymentDate, setPaymentDate] = useState('')
-    const [paymentId, setPaymentId] = useState('')
+    const [invoiceId, setInvoiceId] = useState('')
 
     const fetchInvoiceDetails = () => {
         fetch(`/api/invoices/${invoiceId}`)
@@ -40,12 +40,12 @@ export default function DetailsPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ invoice_id: invoiceId })
+            body: JSON.stringify({ payment_id: paymentId })
         }).then(res => res.json())
         .then(data => {
             setPayStatus(data.status)
             setPaymentDate(new Date(data.payment_date).toLocaleString())
-            setPaymentId(data.id)
+            setInvoiceId(data.invoice_id)
         })
     }
 
@@ -71,11 +71,11 @@ export default function DetailsPage() {
     }
 
     useEffect(() => {
-        fetchInvoiceDetails()
+        fetchPaymentDetails()
     }, [])
 
     useEffect(() => {
-        fetchPaymentDetails()
+        fetchInvoiceDetails()
     }, [])
 
     useEffect(() => {
