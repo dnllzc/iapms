@@ -1,14 +1,10 @@
+import { useParams } from 'react-router-dom';
 import './invTemplate.css';
 
-export default function InvTemplate() {
+export default function InvTemplate({ invoiceId, clientName, clientEmail, amountDue, issueDate }) {
   const companyName = 'Company Name';
   const companyEmail = 'contact@company.com';
   const companyWebsite = 'http://www.company.com';
-  const invNumber = '12345';
-  const amountDue = '550.00€';
-  const issueDate = '03/06/2026, 12:00:00';
-  const clientName = 'Client Name';
-  const clientEmail = 'client@example.com';
 
   return (
     <>
@@ -21,7 +17,7 @@ export default function InvTemplate() {
               </div>
               <div className="invoice-info">
                 <div className="invoice-title">Invoice from {companyName}</div>
-                <div className="invoice-number">Invoice: INV-{invNumber}</div>
+                <div className="invoice-number">Invoice: INV-{invoiceId}</div>
               </div>
             </div>
 
