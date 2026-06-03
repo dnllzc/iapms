@@ -1,11 +1,19 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import './NewInvoices.css'
 import '../main.css'
 import NavBar from '../NavBar'
 import NewInvoiceItemList from './NewInvoiceItemList'
 import NewInvoiceItemsTable from './NewInvoiceItemsTable'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 export default function NewInvoice() {
+    const { user, loading } = useAuth()
+
+    const userId = useMemo(() => {
+        if (!user) return null
+        return user.id || user.user_id || null
+    }, [user])
+
     const [addedItems, setAddedItems] = useState([])
     const [discount, setDiscount] = useState(null)
     const [discountCodeInput, setDiscountCodeInput] = useState('')
@@ -41,7 +49,7 @@ export default function NewInvoice() {
             total_amount: totalAmount.toFixed(2),
             created_at: new Date().toISOString(),
             payment_link: '',
-            user_id: 1,
+            user_id: userId,
             discount_code_id: discount ? discount.id : null,
         }
 

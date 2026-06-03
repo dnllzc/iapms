@@ -23,7 +23,7 @@ export default function AdminHero() {
             </section>
             <section className="center">
                 <div className="heroContent">
-                    <h1 className="welcomeTitle">Welcome, Admin User!</h1>
+                    <h1 className="welcomeTitle">Welcome, {userName}!</h1>
 
                     <div className="buttonContainer">
                         <Link to="/admin/discount-codes"><button className="invoiceButton">Discount Codes</button></Link>
