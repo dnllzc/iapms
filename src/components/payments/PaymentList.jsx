@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { handlePrint } from '../pdf/invTemplate.jsx'
 
 export default function PaymentList() {
     const [payments, setPayments] = useState([])
@@ -76,7 +77,7 @@ export default function PaymentList() {
                                     <td>{element.status}</td>
                                     <td>
                                         <div className="paymentActions">
-                                            <button className="paymentActionButton" id="detailsButton">Print PDF</button>
+                                            <button className="paymentActionButton" id="detailsButton" onClick={() => handlePrint('payment', element.id)}>Print PDF</button>
                                             <Link to={'/payments/details/' + element.id}>
                                                 <button className="paymentActionButton" id="detailsButton">Details</button>
                                             </Link>

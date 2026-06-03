@@ -44,7 +44,7 @@ export default function AppRouter() {
                 <Route path="/print/:type/:id" element={<InvTemplate />} />
 
                 {/* User Routes */}
-                <Route 
+                <Route
                     element={
                         loading
                             ? <section className="center"><h1 className="authTitle">Loading session...</h1></section>

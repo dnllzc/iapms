@@ -39,7 +39,7 @@ const getPaymentDetails = (invoice_id) => {
     })
 }
 
-const getPaymentInfo = (invoice_id) => {
+const getInvItems = (invoice_id) => {
     return new Promise((resolve, reject) => {
         const query = `
             SELECT i.id AS item_id, i.name, i.price, pi.quantity
@@ -85,6 +85,24 @@ router.get('/details/:id', async (req, res, next) => {
     }
 })
 
+router.get('/inv/:id', async (req, res, next) => {
+    try {
+        const invoiceId = req.params?.id
+        if (!invoiceId) {
+            res.status(400).json({ error: 'Invoice ID is required' })
+            return
+        }
+        const payment = await getPaymentDetails(invoiceId)
+        if (!payment) {
+            res.status(404).json({ error: 'Payment not found for this invoice' })
+            return
+        }
+        res.json(payment)
+    } catch (err) {
+        next(err);
+    }
+})
+
 router.post('/info', async (req, res, next) => {
     try {
         const invoiceId = Number(req.body?.invoice_id)
@@ -93,7 +111,7 @@ router.post('/info', async (req, res, next) => {
             return
         }
 
-        const items = await getPaymentInfo(invoiceId)
+        const items = await getInvItems(invoiceId)
         res.json(items)
     } catch (err) {
         next(err);
