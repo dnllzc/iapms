@@ -55,6 +55,34 @@ export default function ItemList({ filters }) {
             }
         }
     }
+
+    const handleCopy = (id) => {
+        return async () => {
+            const payload = { id }
+
+            try {
+                const response = await fetch('/api/items/copy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                })
+
+                if (!response.ok) {
+                    throw new Error('Failed to copy item')
+                }
+
+                const newItem = await response.json()
+                setItems((prevItems) => [...prevItems, newItem])
+                window.alert(`Item (${id}) copied successfully`)
+                window.location.href = `/admin/items/edit/${newItem.id}`
+            } catch (error) {
+                console.error('Error copying item:', error)
+                window.alert('Failed to copy item')
+            }
+        }
+    }
     
     return (
         <table className="itemTable">
@@ -78,7 +106,7 @@ export default function ItemList({ filters }) {
                                         <div className="itemActions">
                                             <button className="itemActionButton" id="deleteButton" onClick={handleDelete(element.id, element.name)}>Delete</button>
                                             <Link to={`/admin/items/edit/${element.id}`}><button className="itemActionButton" id="editButton">Edit</button></Link>
-                                            <button className="itemActionButton" id="copyItemButton">Copy</button>
+                                            <button className="itemActionButton" id="copyItemButton" onClick={handleCopy(element.id)}>Copy</button>
                                         </div>
                                     </td>
                                 </tr>
