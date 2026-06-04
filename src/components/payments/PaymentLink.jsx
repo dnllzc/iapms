@@ -18,6 +18,7 @@ export default function PaymentLink() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log('discountCodeId at submit:', discountCodeId)
 
         const payload = {
             invoice_id: invoiceId,
@@ -36,7 +37,7 @@ export default function PaymentLink() {
 
             if (res.ok) {
                 if (discountCodeId) {
-                    await updateAmountDue(amountDue)
+                    await updateAmountDue(amountDue, discountCodeId)
                 }
                 window.location.href = '/payment-done/' + invoiceId
             } else {
@@ -100,13 +101,13 @@ export default function PaymentLink() {
             })
     }
 
-    const updateAmountDue = (newAmount) => {
+    const updateAmountDue = (newAmount, codeId) => {
         return fetch('/api/invoices/apply-discount', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ invoice_id: invoiceId, discount_code_id: discountCodeId, total_amount: newAmount.toFixed(2) }),
+            body: JSON.stringify({ invoice_id: invoiceId, discount_code_id: codeId, total_amount: newAmount.toFixed(2) }),
         })
             .then(res => res.json()
             .then(data => ({ ok: res.ok, data })))

@@ -79,10 +79,10 @@ const deleteInvoite = (invoiceId) => {
     })
 }
 
-const applyDiscount = (invoiceId, discountCode, totalAmount) => {
+const applyDiscount = (invoiceId, discountCodeId, totalAmount) => {
     return new Promise((resolve, reject) => {
-        const query = 'UPDATE invoice SET discount_code_id = (SELECT id FROM discount_code WHERE code = ?), total_amount = ? WHERE id = ?';
-        conn.query(query, [discountCode, totalAmount, invoiceId], (err, result) => {
+        const query = 'UPDATE invoice SET discount_code_id = ?, total_amount = ? WHERE id = ?';
+        conn.query(query, [discountCodeId, totalAmount, invoiceId], (err, result) => {
             if (err) {
                 reject(err);
                 return;
@@ -174,8 +174,8 @@ router.get('/delete/:id', async (req, res, next) => {
 
 router.post('/apply-discount', async (req, res, next) => {
     try {
-        const { invoice_id, discount_code, total_amount } = req.body;
-        const result = await applyDiscount(invoice_id, discount_code, total_amount);
+        const { invoice_id, discount_code_id, total_amount } = req.body;
+        const result = await applyDiscount(invoice_id, discount_code_id, total_amount);
         res.json(result);
     } catch (err) {
         next(err);
