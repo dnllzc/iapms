@@ -114,16 +114,16 @@ router.post('/check', async (req, res, next) => {
                 return;
             } 
             if (rows.length === 0) {
-                res.status(404).json({ message: 'Discount code not found' });
+                res.status(404).json({success: false, message: 'Discount code not found' });
                 return;
             }
             const discountCode = rows[0];
             const currentDate = new Date();
             if (discountCode.expiration_date < currentDate) {
-                res.status(400).json({ message: 'Discount code has expired' });
+                res.status(400).json({success: false, message: 'Discount code has expired' });
                 return;
             }
-            res.json(discountCode);
+            res.json({success: true, ...discountCode});
         });
     } catch (err) {
         next(err);
