@@ -16,7 +16,7 @@ export default function NewInvoiceItemsTable({ items, onRemoveItem }) {
                     items.map((element) => (
                         <tr key={element.id}>
                             <td>{element.name}</td>
-                            <td>{element.quantity*element.price.toFixed(2)}€</td>
+                            <td>{(element.quantity * element.price).toFixed(2)}€</td>
                             <td>{element.quantity}</td>
                             <td>
                                 <div className="newInvoiceActions">
