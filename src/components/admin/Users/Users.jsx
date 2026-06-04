@@ -3,8 +3,27 @@ import '../../main.css'
 import NavBar from '../NavBar'
 import UserList from './UserList'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Users() {
+    const [filters, setFilters] = useState({
+        email: '',
+        name: ''
+    })
+
+    const handleFilter = (e) => {
+        setFilters(prev => ({ ...prev, [e.target.id]: e.target.value }))
+    }
+
+    const clearFilters = () => {
+        setFilters({
+            email: '',
+            name: ''
+        })
+        document.getElementById('email').value = ''
+        document.getElementById('name').value = ''
+    }
+
     return (
         <>
             <section className="navBar">
@@ -17,12 +36,13 @@ export default function Users() {
                 </section>
 
                 <section className="userFilters">
-                    <input type="text" className="userFilterInput" id="emailFilter" placeholder="Filter by email" />
-                    <input type="text" className="userFilterInput" id="nameFilter" placeholder="Filter by name" />
+                    <input type="text" className="userFilterInput" id="email" placeholder="Filter by email" onChange={handleFilter} />
+                    <input type="text" className="userFilterInput" id="name" placeholder="Filter by name" onChange={handleFilter} />
+                    <button className="newInvoiceButton" onClick={clearFilters}>Clear Filters</button>
                 </section>
 
                 <section className="userTableShell">
-                    <UserList />
+                    <UserList filters={filters} />
                 </section>
             </section>
         </>

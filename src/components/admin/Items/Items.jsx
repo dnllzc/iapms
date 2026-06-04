@@ -3,8 +3,24 @@ import '../../main.css'
 import NavBar from '../NavBar'
 import ItemList from './ItemList'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Items() {
+    const [filters, setFilters] = useState({
+        name: ''
+    })
+
+    const handleFilter = (e) => {
+        setFilters(prev => ({ ...prev, [e.target.id]: e.target.value }))
+    }
+
+    const clearFilters = () => {
+        setFilters({
+            name: ''
+        })
+        document.getElementById('name').value = ''
+    }
+    
     return (
         <>
             <section className="navBar">
@@ -17,11 +33,12 @@ export default function Items() {
                 </section>
 
                 <section className="itemFilters">
-                    <input type="text" className="itemFilterInput" id="nameFilter" placeholder="Filter by name" />
+                    <input type="text" className="itemFilterInput" id="name" placeholder="Filter by name" onChange={handleFilter} />
+                    <button className="newInvoiceButton" onClick={clearFilters}>Clear Filters</button>
                 </section>
 
                 <section className="itemTableShell">
-                    <ItemList />
+                    <ItemList filters={filters} />
                 </section>
             </section>
         </>

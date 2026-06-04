@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function ItemList() {
+export default function ItemList({ filters }) {
     const [items, setItems] = useState([])
     
     useEffect(() => {
@@ -20,7 +20,12 @@ export default function ItemList() {
             })
     }, [])
 
-    const sortedItems = [...items].sort((a, b) => a.id - b.id)
+    const filteredItems = [...items]
+        .sort((a, b) => a.id - b.id)
+        .filter((item) => {
+            const nameMatch = item.name.toLowerCase().includes(filters.name.toLowerCase())
+            return nameMatch
+        })
 
     const handleDelete = (id, name) => {
         return async () => {
@@ -63,7 +68,7 @@ export default function ItemList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {sortedItems.map((element) => (
+                            {filteredItems.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
                                     <td>{element.name}</td>
