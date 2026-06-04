@@ -31,7 +31,7 @@ export default function PaymentLink() {
             .then(({ ok, data }) => {
                 if (ok) {
                     alert('Payment successful!')
-                    window.location.href = `/payment-success/${invoiceId}`
+                    window.location.href = `/payment-done/${invoiceId}`
                 } else {
                     alert('Payment failed. Please try again.')
                     //window.location.reload()
