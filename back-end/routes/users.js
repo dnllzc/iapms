@@ -49,6 +49,19 @@ const editUser = (id, first_name, last_name, email, password, role) => {
     });
 }
 
+const resetPassword = (id) => {
+    return new Promise((resolve, reject) => {
+        const newPassword = Math.random().toString(36).slice(-8); // generate random 8 char password
+        conn.query('UPDATE users SET password = ? WHERE id = ?', [newPassword, id], (err, result) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(newPassword);
+        });
+    });
+}
+
 const router = Router();
 router.get('/', async (req, res, next) => {
     try {
@@ -100,6 +113,16 @@ router.get('/:id', async (req, res, next) => {
             return;
         }
         res.json(user);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/reset-password', async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        const newPassword = await resetPassword(id);
+        res.json({ newPassword });
     } catch (err) {
         next(err);
     }
