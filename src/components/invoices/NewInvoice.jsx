@@ -7,6 +7,7 @@ import NewInvoiceItemsTable from './NewInvoiceItemsTable'
 import { useAuth } from '../../context/AuthContext.jsx'
 
 export default function NewInvoice() {
+    document.title = "New Invoice - iapms"
     const { user, loading } = useAuth()
 
     const userId = useMemo(() => {

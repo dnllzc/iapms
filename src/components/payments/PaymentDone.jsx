@@ -8,6 +8,7 @@ import { handlePrint } from '../pdf/invTemplate.jsx'
 export default function PaymentDone() {
     const pathname = window.location.pathname
     const invoiceId = pathname.split('/')[2]
+    document.title = "Payment Successful - iapms"
 
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')

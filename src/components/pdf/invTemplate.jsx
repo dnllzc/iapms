@@ -24,6 +24,7 @@ export default function InvTemplate() {
   const pathname = window.location.pathname;
   const type = pathname.split('/')[2];
   const id = pathname.split('/')[3];
+  document.title = (type === 'invoice' ? 'INV-' + id : 'RCP-' + id) + ' - ' + companyName + ' - iapms';
   
   const invoice = type === 'invoice';
   const [invoiceId, setInvoiceId] = useState('');

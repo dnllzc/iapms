@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 export default function DiscountCodes() {
+    document.title = "Discount Codes - iapms"
     const [filters, setFilters] = useState({
         code: '',
         expireDate: '',

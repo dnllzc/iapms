@@ -5,6 +5,7 @@ import PaymentList from './PaymentList'
 import { useState } from 'react'
 
 export default function Payments() {
+    document.title = "Payments - iapms"
     const [filters, setFilters] = useState({
         email: '',
         name: '',

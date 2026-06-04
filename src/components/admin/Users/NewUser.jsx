@@ -5,6 +5,7 @@ import NavBar from '../NavBar'
 import { Link } from 'react-router-dom'
 
 export default function NewUser() {
+    document.title = "New User - iapms"
     const pathname = window.location.pathname
     const editMode = pathname.includes('/edit')
     const id = editMode ? pathname.split('/').pop() : null

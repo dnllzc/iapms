@@ -3,6 +3,7 @@ import './Auth.css'
 import { useAuth } from '../context/AuthContext.jsx'
 
 export default function Auth() {
+    document.title = "Authentication - iapms"
     const { login } = useAuth()
 
     return (

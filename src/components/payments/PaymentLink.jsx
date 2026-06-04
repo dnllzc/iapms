@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 export default function PaymentLink() {
     const pathname = window.location.pathname
     const invoiceId = pathname.split('/')[2]
+    document.title = "Payment Link - Invoice #" + invoiceId + " - iapms"
 
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
@@ -15,36 +16,37 @@ export default function PaymentLink() {
     const [discountCodeId, setDiscountCodeId] = useState(null)
     const [discountApplied, setDiscountApplied] = useState(false)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log('discountCodeId at submit:', discountCodeId)
 
         const payload = {
             invoice_id: invoiceId,
             total_amount: amountDue.toFixed(2),
         }
 
-        fetch('/api/payments/process', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        })
-            .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
-            .then(({ ok, data }) => {
-                if (ok) {
-                    updateAmountDue(amountDue)
-                    alert('Payment successful!')
-                    window.location.href = `/payment-done/${invoiceId}`
-                } else {
-                    alert('Payment failed. Please try again.')
-                    //window.location.reload()
+        try {
+            const res = await fetch('/api/payments/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+            const data = await res.json()
+
+            if (res.ok) {
+                if (discountCodeId) {
+                    await updateAmountDue(amountDue, discountCodeId)
                 }
-            })
-            .catch((error) => {
-                console.error('Error processing payment:', error)
+                window.location.href = '/payment-done/' + invoiceId
+            } else {
                 alert('Payment failed. Please try again.')
-            })
+            }
+        } catch (error) {
+            console.error('Error processing payment:', error)
+            alert('Payment failed. Please try again.')
+        }
     }
 
     const fetchInvoiceDetails = () => {
@@ -99,20 +101,19 @@ export default function PaymentLink() {
             })
     }
 
-    const updateAmountDue = (newAmount) => {
-        fetch('/api/invoices/apply-discount', {
+    const updateAmountDue = (newAmount, codeId) => {
+        return fetch('/api/invoices/apply-discount', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ invoice_id: invoiceId, discount_code_id: discountCodeId, total_amount: newAmount.toFixed(2) }),
+            body: JSON.stringify({ invoice_id: invoiceId, discount_code_id: codeId, total_amount: newAmount.toFixed(2) }),
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.ok) {
-                    alert('Discount applied successfully!')
-                } else {
-                    alert('Failed to apply discount.')
+            .then(res => res.json()
+            .then(data => ({ ok: res.ok, data })))
+            .then(({ ok, data }) => {
+                if (!ok) {
+                    console.error("Failed to apply discount: ", data)
                 }
             })
     }

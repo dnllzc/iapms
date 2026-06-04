@@ -10,6 +10,7 @@ import { handlePrint } from '../pdf/invTemplate.jsx'
 export default function DetailsPage() {
     const pathname = window.location.pathname
     const paymentId = pathname.split('/')[3]
+    document.title = "Payment Details" + " #" + paymentId + " - iapms"
 
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
