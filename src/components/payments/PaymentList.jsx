@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { handlePrint } from '../pdf/invTemplate.jsx'
 
-export default function PaymentList() {
+export default function PaymentList({ filters }) {
     const [payments, setPayments] = useState([])
         
         useEffect(() => {
@@ -39,11 +39,19 @@ export default function PaymentList() {
                 })
         }, [])
 
-    // Sort payments by id in decreasing order
-    const sortedPayments = [...payments].sort((a, b) => b.id - a.id)
+    const filteredPayments = [...payments]
+        .sort((a, b) => b.id - a.id)
+        .filter((pay) => {
+            const invoice = invoices.find((inv) => inv.id === pay.invoice_id)
+            const emailMatch = invoice ? invoice.client_email.toLowerCase().includes(filters.email.toLowerCase()) : false
+            const nameMatch = invoice ? invoice.client_name.toLowerCase().includes(filters.name.toLowerCase()) : false
+            const dateMatch = filters.date ? new Date(pay.payment_date).toLocaleDateString('en-GB') === new Date(filters.date).toLocaleDateString('en-GB') : true
+            const statusMatch = filters.status ? pay.status === filters.status : true
+            return emailMatch && nameMatch && dateMatch && statusMatch
+        })
 
     // Map payments to include client name and email from invoices
-    const enrichedPayments = sortedPayments.map((payment) => {
+    const enrichedPayments = filteredPayments.map((payment) => {
         const invoice = invoices.find((inv) => inv.id === payment.invoice_id)
         return {
             ...payment,
