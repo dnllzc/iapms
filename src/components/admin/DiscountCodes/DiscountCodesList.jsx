@@ -81,7 +81,7 @@ export default function DiscountCodesList({ filters }) {
                                     <td>{formatDate(element.expiration_date)}</td>
                                     <td>{element.discount_type}</td>
                                     <td>{element.code}</td>
-                                    <td>{element.value}</td>
+                                    <td>{element.value.toFixed(2)}{element.discount_type === 'percentage' ? '%' : '€'}</td>
                                     <td>
                                         <div className="discountCodeActions">
                                             <button className="discountCodeActionButton" id="deleteButton" onClick={handleDelete(element.id)}>Delete</button>
