@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 export default function PaymentLink() {
     const pathname = window.location.pathname
     const invoiceId = pathname.split('/')[2]
+    document.title = "Payment Link - Invoice #" + invoiceId + " - iapms"
 
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')

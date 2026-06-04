@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 export default function Items() {
+    document.title = "Items - iapms"
     const [filters, setFilters] = useState({
         name: ''
     })
