@@ -134,7 +134,7 @@ export default function PaymentLink() {
                         <div className="paymentInfo">
                             <div className="paymentInfoRow">
                                 <span className="paymentInfoLabel">Invoice ID:</span>
-                                <span className="paymentInfoValue" id="invoiceId">{invoiceId}</span>
+                                <span className="paymentInfoValue" id="invoiceId">INV-{invoiceId}</span>
                             </div>
                             <div className="paymentInfoRow">
                                 <span className="paymentInfoLabel">Issued to:</span>

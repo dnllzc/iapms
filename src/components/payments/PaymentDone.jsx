@@ -13,6 +13,8 @@ export default function PaymentDone() {
     const [clientEmail, setClientEmail] = useState('')
     const [amountDue, setAmountDue] = useState(0)
     const [paymentId, setPaymentId] = useState('')
+    const [discountCodeId, setDiscountCodeId] = useState(null)
+    const [discountCode, setDiscountCode] = useState('')
 
     const fetchInvoiceDetails = () => {
         fetch(`/api/invoices/${invoiceId}`)
@@ -21,6 +23,10 @@ export default function PaymentDone() {
                 setClientName(data.client_name)
                 setClientEmail(data.client_email)
                 setAmountDue(Number(data.total_amount) || 0)
+                if (data.discount_code_id) {
+                    setDiscountCodeId(data.discount_code_id)
+                    fetchDiscountCode(data.discount_code_id)
+                }
             })
     }
 
@@ -57,6 +63,19 @@ export default function PaymentDone() {
             })
     }
 
+    const fetchDiscountCode = (discountCodeId) => {
+        if (!discountCodeId) return
+        fetch('/api/discountcodes/' + discountCodeId)
+            .then(res => res.json())
+            .then(data => {
+                if (data.discount_type === 'percentage') {
+                    setDiscountCode(data.code + ' (' + data.value + '% off)')
+                } else if (data.discount_type === 'fixed') {
+                    setDiscountCode(data.code + ' (' + data.value + '€ off)')
+                }
+            })
+    }
+
     useEffect(() => {
         fetchInvoiceDetails()
     }, [])
@@ -78,7 +97,11 @@ export default function PaymentDone() {
                         <div className="paymentInfo">
                             <div className="paymentInfoRow">
                                 <span className="paymentInfoLabel">Invoice ID:</span>
-                                <span className="paymentInfoValue" id="invoiceId">{invoiceId}</span>
+                                <span className="paymentInfoValue" id="invoiceId">INV-{invoiceId}</span>
+                            </div>
+                            <div className="paymentInfoRow">
+                                <span className="paymentInfoLabel">Receipt ID:</span>
+                                <span className="paymentInfoValue" id="paymentId">RCP-{paymentId}</span>
                             </div>
                             <div className="paymentInfoRow">
                                 <span className="paymentInfoLabel">Issued to:</span>
@@ -89,8 +112,12 @@ export default function PaymentDone() {
                                 <span className="paymentInfoValue" id="clientEmail">{clientEmail}</span>
                             </div>
                             <div className="paymentInfoRow paymentInfoRowEmphasis">
-                                <span className="paymentInfoLabel">Amount Due:</span>
+                                <span className="paymentInfoLabel">Amount Paid:</span>
                                 <span className="paymentInfoValue" id="amountDue">{amountDue.toFixed(2)}€</span>
+                            </div>
+                            <div className="paymentInfoRow paymentInfoRowEmphasis">
+                                <span className="paymentInfoLabel">Discount Code:</span>
+                                <span className="paymentInfoValue" id="discountCode">{discountCode || 'N/A'}</span>
                             </div>
                         </div>
                         <div className="paymentProcess">
