@@ -3,8 +3,31 @@ import '../../main.css'
 import NavBar from '../NavBar'
 import DiscountCodesList from './DiscountCodesList'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function DiscountCodes() {
+    const [filters, setFilters] = useState({
+        code: '',
+        expireDate: '',
+        type: ''
+    })
+
+    const handleFilter = (e) => {
+        setFilters(prev => ({ ...prev, [e.target.id]: e.target.value }))
+    }
+
+    const clearFilters = () => {
+        setFilters({
+            code: '',
+            expireDate: '',
+            type: ''
+        })
+
+        document.getElementById('code').value = ''
+        document.getElementById('expireDate').value = ''
+        document.getElementById('type').value = ''
+    }
+
     return (
         <>
             <section className="navBar">
@@ -17,17 +40,18 @@ export default function DiscountCodes() {
                 </section>
 
                 <section className="discountCodeFilters">
-                    <input type="text" className="discountCodeFilterInput" id="codeFilter" placeholder="Filter by code" />
-                    <input type="date" className="discountCodeFilterInput" id="expireDateFilter" placeholder="Filter by expire date" />
-                    <select className="discountCodeFilterInput" id="typeFilter">
+                    <input type="text" className="discountCodeFilterInput" id="code" placeholder="Filter by code" onChange={handleFilter} />
+                    <input type="date" className="discountCodeFilterInput" id="expireDate" placeholder="Filter by expire date" onChange={handleFilter} />
+                    <select className="discountCodeFilterInput" id="type" defaultValue="" onChange={handleFilter}>
                         <option value="">Filter by type</option>
                         <option value="percentage">Percentage</option>
                         <option value="fixed">Fixed Amount</option>
                     </select>
+                    <button className="newInvoiceButton" onClick={clearFilters}>Clear Filters</button>
                 </section>
 
                 <section className="discountCodeTableShell">
-                    <DiscountCodesList />
+                    <DiscountCodesList filters={filters} />
                 </section>
             </section>
         </>

@@ -33,6 +33,7 @@ export default function InvTemplate() {
   const [clientName, setClientName] = useState('');
   const [clientEmail, setClientEmail] = useState('');
   const [items, setItems] = useState([]);
+  const [discountCode, setDiscountCode] = useState('');
 
   const getInvoiceData = async (invId) => {
     try {
@@ -43,6 +44,9 @@ export default function InvTemplate() {
       setIssueDate(new Date(data.created_at).toLocaleString());
       setClientName(data.client_name);
       setClientEmail(data.client_email);
+      if (data.discount_code_id) {
+        await getDiscountCode(data.discount_code_id);
+      }
     } catch (error) {
       console.error('Error fetching invoice data:', error);
     }
@@ -59,6 +63,22 @@ export default function InvTemplate() {
       getInvoiceData(data.invoice_id);
     } catch (error) {
       console.error('Error fetching payment data:', error);
+    }
+  }
+
+  const getDiscountCode = async (discountCodeId) => {
+    try {
+      const response = await fetch('/api/discountcodes/' + discountCodeId);
+      const data = await response.json();
+      if (data.discount_type === 'percentage') {
+        setDiscountCode(data.code + ' (' + data.value + '% off)');
+      } else if (data.discount_type === 'fixed') {
+        setDiscountCode(data.code + ' (' + data.value + '€ off)');
+      } else {
+        setDiscountCode(data.code);
+      }
+    } catch (error) {
+      console.error('Error fetching discount code:', error);
     }
   }
 
@@ -169,6 +189,11 @@ export default function InvTemplate() {
                         <td className="right-align">{item.price.toFixed(2) + '€'}</td>
                       </tr>
                     ))}
+                    <tr className="discount-row">
+                      <td>Discount</td>
+                      <td></td>
+                      <td className="right-align">{discountCode ? discountCode : 'N/A'}</td>
+                    </tr>
                     <tr className="amount-row">
                       <td>Amount due</td>
                       <td></td>

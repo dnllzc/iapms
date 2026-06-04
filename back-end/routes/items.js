@@ -61,6 +61,18 @@ const getItemInfo = (id) => {
     })
 }
 
+const copyItem = (id) => {
+    return new Promise((resolve, reject) => {
+        conn.query('INSERT INTO item (name, description, price) SELECT CONCAT(name, " (Copy)"), description, price FROM item WHERE id = ?', [id], (err, rows, fields) => {
+            if (err) {
+                reject(err);
+                return;
+            } 
+            resolve(rows);
+        });
+    })
+}
+
 const router = Router();
 router.get('/', async (req, res, next) => {
     try {
@@ -107,6 +119,18 @@ router.put('/edit/:id', async (req, res, next) => {
         const { name, description, price } = req.body;
         const result = await editItem(id, name, description, price);
         res.json(result);
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.post('/copy', async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        const result = await copyItem(id);
+        const newItemId = result.insertId;
+        const newItemInfo = await getItemInfo(newItemId);
+        res.json(newItemInfo);
     } catch (err) {
         next(err);
     }

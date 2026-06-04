@@ -3,8 +3,33 @@ import '../main.css'
 import NavBar from '../NavBar'
 import InvoiceList from './InvoiceList'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Invoices() {
+    const [filters, setFilters] = useState({
+        email: '',
+        name: '',
+        date: '',
+        status: ''
+    })
+
+    const handleFilter = (e) => {
+        setFilters(prev => ({ ...prev, [e.target.id]: e.target.value }))
+    }
+
+    const clearFilters = () => {
+        setFilters({
+            email: '',
+            name: '',
+            date: '',
+            status: ''
+        })
+        document.getElementById('email').value = ''
+        document.getElementById('name').value = ''
+        document.getElementById('date').value = ''
+        document.getElementById('status').value = ''
+    }
+
     return (
         <>
             <section className="navBar">
@@ -17,18 +42,19 @@ export default function Invoices() {
                 </section>
 
                 <section className="invoiceFilters">
-                    <input type="text" className="invoiceFilterInput" id="emailFilter" placeholder="Filter by email" />
-                    <input type="text" className="invoiceFilterInput" id="nameFilter" placeholder="Filter by name" />
-                    <input type="date" className="invoiceFilterInput" id="dateFilter" placeholder="Filter by date" />
-                    <select className="invoiceFilterInput invoiceFilterSelect" id="statusFilter" defaultValue="">
+                    <input type="text" className="invoiceFilterInput" id="email" placeholder="Filter by email" onChange={handleFilter} />
+                    <input type="text" className="invoiceFilterInput" id="name" placeholder="Filter by name" onChange={handleFilter} />
+                    <input type="date" className="invoiceFilterInput" id="date" placeholder="Filter by date" onChange={handleFilter} />
+                    <select className="invoiceFilterInput invoiceFilterSelect" id="status" defaultValue="" onChange={handleFilter}>
                         <option value="">All Statuses</option>
                         <option value="Paid">Paid</option>
                         <option value="Pending">Pending</option>
                     </select>
+                    <button className="newInvoiceButton" onClick={clearFilters}>Clear Filters</button>
                 </section>
 
                 <section className="invoiceTableShell">
-                    <InvoiceList />
+                    <InvoiceList filters={filters} />
                 </section>
             </section>
         </>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-export default function DiscountCodesList() {
+export default function DiscountCodesList({ filters }) {
     const [discountCodes, setDiscountCodes] = useState([])
     
     useEffect(() => {
@@ -21,7 +21,14 @@ export default function DiscountCodesList() {
             })
     }, [])
 
-    discountCodes.sort((a, b) => a.id - b.id)
+    const filteredCodes = [...discountCodes]
+        .sort((a, b) => a.id - b.id)
+        .filter((code) => {
+            const codeMatch = code.code.toLowerCase().includes(filters.code.toLowerCase())
+            const dateMatch = filters.expireDate ? new Date(code.expiration_date).toLocaleDateString('en-GB') === new Date(filters.expireDate).toLocaleDateString('en-GB') : true
+            const typeMatch = filters.type ? code.discount_type === filters.type : true
+            return codeMatch && dateMatch && typeMatch
+        })
 
     const formatDate = (dateString) =>
         new Date(dateString).toLocaleDateString('en-GB');
@@ -68,7 +75,7 @@ export default function DiscountCodesList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {discountCodes.map((element) => (
+                            {filteredCodes.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
                                     <td>{formatDate(element.expiration_date)}</td>

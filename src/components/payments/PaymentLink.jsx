@@ -11,6 +11,9 @@ export default function PaymentLink() {
     const [clientName, setClientName] = useState('')
     const [clientEmail, setClientEmail] = useState('')
     const [amountDue, setAmountDue] = useState(0)
+    const [discountCode, setDiscountCode] = useState('')
+    const [discountCodeId, setDiscountCodeId] = useState(null)
+    const [discountApplied, setDiscountApplied] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -30,8 +33,9 @@ export default function PaymentLink() {
             .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
             .then(({ ok, data }) => {
                 if (ok) {
+                    updateAmountDue(amountDue)
                     alert('Payment successful!')
-                    window.location.href = `/payment-success/${invoiceId}`
+                    window.location.href = `/payment-done/${invoiceId}`
                 } else {
                     alert('Payment failed. Please try again.')
                     //window.location.reload()
@@ -50,6 +54,10 @@ export default function PaymentLink() {
                 setClientName(data.client_name)
                 setClientEmail(data.client_email)
                 setAmountDue(Number(data.total_amount) || 0)
+                if (data.discount_code) {
+                    setDiscountCode(data.discount_code)
+                    setDiscountApplied(true)
+                }
             })
     }
 
@@ -60,6 +68,51 @@ export default function PaymentLink() {
                 if (data.status === 'paid') {
                     alert('This invoice has already been paid.')
                     window.location.href = '/payment-done/' + invoiceId
+                }
+            })
+    }
+
+    const handleDiscount = () => {
+        fetch('/api/discountcodes/check', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ code: discountCode }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setDiscountApplied(true)
+                    setDiscountCodeId(data.id)
+                    if (data.discount_type === 'percentage') {
+                        setAmountDue(prev => prev - (prev * (data.value / 100)))
+                    } else if (data.discount_type === 'fixed') {
+                        setAmountDue(prev => Math.max(0, prev - data.value))
+                    }
+                } else {
+                    alert('Invalid discount code.')
+                    console.error('Error applying discount:', data.message)
+                    console.log('Response data:', data)
+                    console.log('Request payload:', { code: discountCode })
+                }
+            })
+    }
+
+    const updateAmountDue = (newAmount) => {
+        fetch('/api/invoices/apply-discount', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ invoice_id: invoiceId, discount_code_id: discountCodeId, total_amount: newAmount.toFixed(2) }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('Discount applied successfully!')
+                } else {
+                    alert('Failed to apply discount.')
                 }
             })
     }
@@ -81,7 +134,7 @@ export default function PaymentLink() {
                         <div className="paymentInfo">
                             <div className="paymentInfoRow">
                                 <span className="paymentInfoLabel">Invoice ID:</span>
-                                <span className="paymentInfoValue" id="invoiceId">{invoiceId}</span>
+                                <span className="paymentInfoValue" id="invoiceId">INV-{invoiceId}</span>
                             </div>
                             <div className="paymentInfoRow">
                                 <span className="paymentInfoLabel">Issued to:</span>
@@ -106,6 +159,13 @@ export default function PaymentLink() {
                                 <input type="text" className="paymentCardInput" id="expiryDate" name="expiryDate" placeholder="MM/YY" required />
                                 <label htmlFor="cvv">CVV</label>
                                 <input type="text" className="paymentCardInput" id="cvv" name="cvv" placeholder="123" required />
+                                {discountApplied ? 
+                                    <input type="text" className="paymentCardInput" id="discount" name="discount" placeholder={discountCode} disabled /> :
+                                    <>
+                                    <input type="text" className="paymentCardInput" id="discount" name="discount" placeholder="Discount Code" onChange={(e) => setDiscountCode(e.target.value.trim())} />
+                                    <button type="button" className="applyDiscountButton" onClick={handleDiscount}>Apply Discount</button>
+                                    </>
+                                }
                                 <button type="submit" className="payButton">Pay Now</button>
                             </form>
                         </div>

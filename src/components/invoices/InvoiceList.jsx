@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Link } from 'react-router-dom'
 import { handlePrint } from '../pdf/invTemplate.jsx'
 
-export default function InvoiceList() {
+export default function InvoiceList({ filters }) {
     const [invoices, setInvoices] = useState([])
     
     useEffect(() => {
@@ -25,8 +25,15 @@ export default function InvoiceList() {
     const formatDate = (dateString) =>
         new Date(dateString).toLocaleDateString('en-GB');
 
-    // Sort invoices by id in decreasing order
-    const sortedInvoices = [...invoices].sort((a, b) => b.id - a.id)
+    const filteredInvoices = [...invoices]
+        .sort((a, b) => b.id - a.id)
+        .filter((inv) => {
+            const emailMatch = inv.client_email.toLowerCase().includes(filters.email.toLowerCase())
+            const nameMatch = inv.client_name.toLowerCase().includes(filters.name.toLowerCase())
+            const dateMatch = filters.date ? formatDate(inv.created_at) === formatDate(filters.date) : true
+            const statusMatch = filters.status ? inv.status === filters.status : true
+            return emailMatch && nameMatch && dateMatch && statusMatch
+        })
     
     return (
         <table className="invoiceTable">
@@ -41,7 +48,7 @@ export default function InvoiceList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {sortedInvoices.map((element) => (
+                            {filteredInvoices.map((element) => (
                                 <tr key={element.id}>
                                     <td>{element.id}</td>
                                     <td>{formatDate(element.created_at)}</td>
