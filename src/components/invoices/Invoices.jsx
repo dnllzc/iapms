@@ -17,6 +17,19 @@ export default function Invoices() {
         setFilters(prev => ({ ...prev, [e.target.id]: e.target.value }))
     }
 
+    const clearFilters = () => {
+        setFilters({
+            email: '',
+            name: '',
+            date: '',
+            status: ''
+        })
+        document.getElementById('email').value = ''
+        document.getElementById('name').value = ''
+        document.getElementById('date').value = ''
+        document.getElementById('status').value = ''
+    }
+
     return (
         <>
             <section className="navBar">
@@ -37,6 +50,7 @@ export default function Invoices() {
                         <option value="Paid">Paid</option>
                         <option value="Pending">Pending</option>
                     </select>
+                    <button className="newInvoiceButton" onClick={clearFilters}>Clear Filters</button>
                 </section>
 
                 <section className="invoiceTableShell">
