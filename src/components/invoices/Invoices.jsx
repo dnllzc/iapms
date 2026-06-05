@@ -48,8 +48,8 @@ export default function Invoices() {
                     <input type="date" className="invoiceFilterInput" id="date" placeholder="Filter by date" onChange={handleFilter} />
                     <select className="invoiceFilterInput invoiceFilterSelect" id="status" defaultValue="" onChange={handleFilter}>
                         <option value="">All Statuses</option>
-                        <option value="Paid">Paid</option>
-                        <option value="Pending">Pending</option>
+                        <option value="paid">Paid</option>
+                        <option value="pending">Pending</option>
                     </select>
                     <button className="newInvoiceButton" onClick={clearFilters}>Clear Filters</button>
                 </section>

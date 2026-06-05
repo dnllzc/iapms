@@ -46,8 +46,8 @@ export default function Payments() {
                     <input type="date" className="paymentFilterInput" id="date" placeholder="Filter by date" onChange={handleFilter} />
                     <select className="paymentFilterInput paymentFilterSelect" id="status" defaultValue="" onChange={handleFilter}>
                         <option value="">All Statuses</option>
-                        <option value="Paid">Success</option>
-                        <option value="Pending">Failed</option>
+                        <option value="success">Success</option>
+                        <option value="failed">Failed</option>
                     </select>
                     <button className="newInvoiceButton" onClick={clearFilters}>Clear Filters</button>
                 </section>

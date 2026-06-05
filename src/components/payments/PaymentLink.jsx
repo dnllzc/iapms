@@ -56,9 +56,15 @@ export default function PaymentLink() {
                 setClientName(data.client_name)
                 setClientEmail(data.client_email)
                 setAmountDue(Number(data.total_amount) || 0)
-                if (data.discount_code) {
-                    setDiscountCode(data.discount_code)
+                if (data.discount_code_id) {
+                    setDiscountCodeId(data.discount_code_id)
                     setDiscountApplied(true)
+                    fetch('/api/discountcodes/' + data.discount_code_id)
+                        .then(res => res.json())
+                        .then(discountData => {
+                            setDiscountCode(discountData.code)
+                            document.getElementById('discount').value = discountData.code
+                        })
                 }
             })
     }
@@ -92,6 +98,7 @@ export default function PaymentLink() {
                     } else if (data.discount_type === 'fixed') {
                         setAmountDue(prev => Math.max(0, prev - data.value))
                     }
+                    document.getElementById('discount').value = data.code
                 } else {
                     alert('Invalid discount code.')
                     console.error('Error applying discount:', data.message)
@@ -161,7 +168,7 @@ export default function PaymentLink() {
                                 <label htmlFor="cvv">CVV</label>
                                 <input type="text" className="paymentCardInput" id="cvv" name="cvv" placeholder="123" required />
                                 {discountApplied ? 
-                                    <input type="text" className="paymentCardInput" id="discount" name="discount" placeholder={discountCode} disabled /> :
+                                    <input type="text" className="paymentCardInput" id="discount" name="discount" disabled /> :
                                     <>
                                     <input type="text" className="paymentCardInput" id="discount" name="discount" placeholder="Discount Code" onChange={(e) => setDiscountCode(e.target.value.trim())} />
                                     <button type="button" className="applyDiscountButton" onClick={handleDiscount}>Apply Discount</button>
