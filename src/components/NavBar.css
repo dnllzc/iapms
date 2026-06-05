@@ -2,6 +2,8 @@
   display: flex;
   gap: 16px;
   padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
   background-color: darkslategrey;
 
   a {
@@ -30,6 +32,13 @@
       text-decoration: underline;
     }
   }
+}
+
+.navBarRight {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .divider {

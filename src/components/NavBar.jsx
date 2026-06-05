@@ -28,8 +28,11 @@ export default function NavBar() {
             )}
             <Link to="/invoices">Invoices</Link>
             <Link to="/payments">Payments</Link>
-            <div className="divider" />
-            <button type="button" className="navBarLogoutButton" onClick={handleLogout}>Log Out</button>
+            <div className="navBarRight">
+                <div className="navBarUserInfo"> {user?.fullName || 'User'}</div>
+                <div className="divider" />
+                <button type="button" className="navBarLogoutButton" onClick={handleLogout}>Log Out</button>
+            </div>
         </nav>
     )
 }
